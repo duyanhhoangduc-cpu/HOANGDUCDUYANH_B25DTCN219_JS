@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="demo.js">
+let rawBookName = prompt("Nhập tên sách:");
+let rawAuthor = prompt("Nhập tên tác giả:");
+let rawYear = prompt("Nhập năm xuất bản:");
+let rawPrice = prompt("Nhập giá tiền một cuốn:");
+let rawQuantity = prompt("Nhập số lượng nhập kho:");
+
+let author = rawAuthor.toUpperCase();// Chuyển tác giả thành in hoa
+let year = Number(rawYear); // Chuyển sang kiểu số
+let price = Number(rawPrice); // Chuyển sang kiểu số
+let quantity = Number(rawQuantity);// Chuyển sang kiểu số
+
+//Book ID
+// Công thức: 3 ký tự đầu tác giả + năm + số ngẫu nhiên (1-1000)
+let authorPrefix = author.substring(0, 3); 
+let randomId = Math.floor(Math.random() * 1000) + 1;
+let bookID = `${authorPrefix}${year}-${randomId}`;
+
+// 4. Tính toán số liệu
+const CURRENT_YEAR = 2026;
+let bookAge = CURRENT_YEAR - year;
+let totalValue = price * quantity;
+let shelfNumber = Math.floor(Math.random() * 10) + 1; // Kệ ngẫu nhiên từ 1-10
+
+// 5. In phiếu nhập kho bằng Template String
+console.log(`
+--- PHIẾU NHẬP KHO ---
+Mã sách: ${bookID}
+Tên sách: ${bookName}
+Tác giả: ${author}
+Năm xuất bản: ${year}
+Tuổi sách: ${bookAge} năm
+Tổng giá trị: ${totalValue.toLocaleString()} VNĐ
+Ngăn kệ gợi ý: Kệ số ${shelfNumber}
+`);
+    </script>
+</body>
+</html>
