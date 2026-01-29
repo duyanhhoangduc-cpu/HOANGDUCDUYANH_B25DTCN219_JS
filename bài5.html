@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Tuổi sách</title>
+</head>
+<body>
+    <script>
+        let tenSach = prompt("Nhập tên sách:");
+        let namXuatBan = Number(prompt("Nhập năm xuất bản của sách:"));
+        let namHienTai = Number(prompt("Nhập năm hiện tại:"));
+
+        let tuoiSach = namHienTai - namXuatBan;
+
+        console.log("Sách: " + tenSach);
+        console.log("Năm xuất bản: " + namXuatBan);
+        console.log("Tuổi của sách: " + tuoiSach + " năm");
+    </script>
+</body>
+</html>

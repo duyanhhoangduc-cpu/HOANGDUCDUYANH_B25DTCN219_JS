@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Mã sách</title>
+</head>
+<body>
+    <script>
+        let tenSachGoc = prompt("Nhập tên sách:");
+        let soThuTu = prompt("Nhập số thứ tự của sách:");
+
+        let tenSachChuanHoa = tenSachGoc.trim().toUpperCase();
+        let maSach = "LIB- " + tenSachChuanHoa + " - " + soThuTu;
+
+        console.log("Tên sách gốc: " + tenSachGoc);
+        console.log("Mã sách sau chuẩn hóa: " + maSach);
+    </script>
+</body>
+</html>

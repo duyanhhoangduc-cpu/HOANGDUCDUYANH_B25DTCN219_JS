@@ -28,9 +28,8 @@ let bookID = `${authorPrefix}${year}-${randomId}`;
 const CURRENT_YEAR = 2026;
 let bookAge = CURRENT_YEAR - year;
 let totalValue = price * quantity;
-let shelfNumber = Math.floor(Math.random() * 10) + 1; // Kệ ngẫu nhiên từ 1-10
+let shelfNumber = Math.floor(Math.random() * 10) + 1;
 
-// 5. In phiếu nhập kho bằng Template String
 console.log(`
 --- PHIẾU NHẬP KHO ---
 Mã sách: ${bookID}
