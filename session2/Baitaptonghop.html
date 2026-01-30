@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+let userName = prompt("Nhập tên người dùng:");
+let role = prompt("Nhập vai trò (admin / student / guest):");
+let balanceInput = prompt("Nhập số dư tài khoản:");
+let cardStatusInput = prompt("Trạng thái thẻ (true nếu hoạt động):");
+let lateDaysInput = prompt("Số ngày quá hạn trả sách:");
+
+
+role = role ? role.toLowerCase() : "";
+let balance = Number(balanceInput) || 0;
+let cardStatus = cardStatusInput === "true";
+let lateDays = Number(lateDaysInput) || 0;
+
+
+let roleMessage = "";
+
+switch (role) {
+    case "admin":
+        roleMessage = "Chào Admin, bạn có toàn quyền hệ thống";
+        break;
+    case "student":
+        roleMessage = "Chào sinh viên, bạn có thể mượn sách";
+        break;
+    case "guest":
+        roleMessage = "Chào khách, bạn chỉ có thể đọc tại chỗ";
+        break;
+    default:
+        roleMessage = "Lỗi: Vai trò không hợp lệ!";
+}
+
+let borrowResult = "";
+let denyReason = "";
+
+if (!userName) {
+    denyReason = "Tên người dùng không hợp lệ";
+} else if (role !== "admin" && role !== "student") {
+    denyReason = "Vai trò không được phép mượn sách";
+} else if (balance <= 0) {
+    denyReason = "Tài khoản không đủ số dư";
+} else if (!cardStatus) {
+    denyReason = "Thẻ thư viện đang bị khóa";
+}
+
+if (denyReason === "") {
+    borrowResult = "ĐƯỢC PHÉP MƯỢN SÁCH";
+} else {
+    borrowResult = `YÊU CẦU BỊ TỪ CHỐI (${denyReason})`;
+}
+
+
+let fine = 0;
+let returnStatus = "";
+
+if (lateDays <= 0) {
+    returnStatus = "Cảm ơn bạn đã trả đúng hạn";
+} else if (lateDays <= 5) {
+    fine = lateDays * 5000;
+    returnStatus = `Quá hạn ${lateDays} ngày`;
+} else if (lateDays <= 10) {
+    fine = lateDays * 10000;
+    returnStatus = `Quá hạn ${lateDays} ngày`;
+} else {
+    fine = 200000;
+    returnStatus = `Quá hạn ${lateDays} ngày - TÀI KHOẢN BỊ KHÓA`;
+}
+console.log(`
+--- HỆ THỐNG MƯỢN TRẢ ---
+
+Người dùng: ${userName ? userName.toUpperCase() : "KHÔNG XÁC ĐỊNH"}
+
+Quyền hạn: ${roleMessage}
+
+Kết quả mượn: ${borrowResult}
+
+Tình trạng trả sách: ${returnStatus}
+
+Tiền phạt: ${fine} VNĐ
+`);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý sách mượn theo mức độ yêu thích</title>
+</head>
+<body>
+    <script>
+        let tenSach = prompt("Nhập tên sách:");
+        let tenNguoiMuon = prompt("Nhập tên người mượn:");
+        let mucDoYeuThich = Number(prompt("Nhập mức độ yêu thích (1 - 5):"));
+
+        if (mucDoYeuThich === 5 || mucDoYeuThich === 4) {
+            alert("Đây là cuốn sách yêu thích của bạn, hãy đọc ngay!");
+        } else if (mucDoYeuThich === 3) {
+            alert("Sách này khá ổn, có thể mượn");
+        } else {
+            alert("Sách này bạn có thể cân nhắc mượn lại sau");
+        }
+    </script>
+</body>
+</html>

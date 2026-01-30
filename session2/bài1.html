@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý sách</title>
+</head>
+<body>
+    <script>
+        let tenSach = prompt("Nhập tên sách:");
+        let tacGia = prompt("Nhập tên tác giả:");
+        let namXuatBan = Number(prompt("Nhập năm xuất bản:"));
+
+        let namHienTai = new Date().getFullYear();
+
+        if (namXuatBan === namHienTai) {
+            alert("Đây là sách mới!");
+        } else if (namHienTai - namXuatBan <= 5) {
+            alert("Sách khá mới");
+        } else {
+            alert("Sách đã cũ");
+        }
+    </script>
+</body>
+</html>
