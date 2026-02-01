@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Mô phỏng mượn sách thư viện</title>
+</head>
+<body>
+    <h1>Mô phỏng ghi nhận lượt mượn sách</h1>
+    <p>Mở Console (F12) để xem kết quả.</p>
+
+    <script>        let soLuotMuon = parseInt(prompt("Hôm nay có bao nhiêu lượt mượn sách?"));
+
+        let tongLuotMuon = 0;
+
+        for (let i = 1; i <= soLuotMuon; i++) {
+            console.log(`--- Lượt mượn thứ ${i} ---`);
+
+            let tenNguoiMuon = prompt("Nhập tên người mượn:");
+            let tenSach = prompt("Nhập tên sách:");
+            let soNgayMuon = parseInt(prompt("Nhập số ngày mượn (1 - 30):"));
+
+            if (soNgayMuon > 14) {
+                console.log("Cảnh báo: Thời gian mượn vượt quy định (tối đa 14 ngày)");
+            } else {
+                console.log("Mượn thành công");
+            }
+
+            tongLuotMuon++;
+        }
+
+        console.log("===== THỐNG KÊ TRONG NGÀY =====");
+        console.log("Tổng số lượt mượn:", tongLuotMuon);
+    </script>
+</body>
+</html>

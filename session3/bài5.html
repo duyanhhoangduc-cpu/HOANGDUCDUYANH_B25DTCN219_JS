@@ -1,0 +1,69 @@
+\<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Xử lý đặt mượn trước</title>
+</head>
+<body>
+    <h1>Xử lý yêu cầu đặt mượn trước</h1>
+    <p>Mở Console (F12) để xem kết quả.</p>
+
+    <script>
+        let tongYeuCau = 0;
+        let soThanhCong = 0;
+        let soTuChoi = 0;
+        let soChoXetDuyet = 0;
+
+        while (true) {
+            let tiepTuc = prompt("Có yêu cầu đặt mượn trước mới không? (có/không)");
+
+            if (tiepTuc === "không") {
+                break;
+            }
+
+            if (tiepTuc !== "có") {
+                continue;
+            }
+
+            let tenBanDoc = prompt("Nhập tên bạn đọc:");
+            let maSach = prompt("Nhập mã sách muốn đặt trước:");
+            let tenSach = prompt("Nhập tên sách:");
+            let soNgayCho;
+            let uuTien;
+
+            do {
+                soNgayCho = parseInt(prompt("Nhập số ngày dự kiến chờ (>= 1):"));
+            } while (isNaN(soNgayCho) || soNgayCho < 1);
+
+            do {
+                uuTien = parseInt(prompt("Nhập ưu tiên (1-SV, 2-GV/NCS, 3-Đặc cách):"));
+            } while (![1, 2, 3].includes(uuTien));
+
+            if (soNgayCho > 45) {
+                console.log("Từ chối: Thời gian chờ quá lâu (>45 ngày)");
+                soTuChoi++;
+            } else if (uuTien === 3) {
+                console.log("Đặt trước thành công - Ưu tiên đặc cách cao nhất");
+                soThanhCong++;
+            } else if (uuTien === 2 && soNgayCho <= 30) {
+                console.log("Đặt trước thành công - Ưu tiên giảng viên/nghiên cứu");
+                soThanhCong++;
+            } else if (uuTien === 1 && soNgayCho <= 21) {
+                console.log("Đặt trước thành công");
+                soThanhCong++;
+            } else {
+                console.log("Đặt trước tạm thời - Chờ xét duyệt thêm");
+                soChoXetDuyet++;
+            }
+
+            tongYeuCau++;
+        }
+
+        console.log("===== BÁO CÁO CUỐI CA =====");
+        console.log("Tổng số yêu cầu đã xử lý:", tongYeuCau);
+        console.log("Số yêu cầu đặt trước thành công:", soThanhCong);
+        console.log("Số yêu cầu bị từ chối:", soTuChoi);
+        console.log("Số yêu cầu chờ xét duyệt:", soChoXetDuyet);
+    </script>
+</body>
+</html>

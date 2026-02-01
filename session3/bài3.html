@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Xử lý gia hạn mượn sách</title>
+</head>
+<body>
+    <h1>Xử lý yêu cầu gia hạn mượn sách</h1>
+    <p>Mở Console (F12) để xem kết quả.</p>
+
+    <script>
+        let soLanThanhCong = 0;
+        let soLanKhongThanhCong = 0;
+
+        while (true) {
+            let yeuCau = prompt("Có yêu cầu gia hạn mới không? (có/không)");
+
+            if (yeuCau === "không") {
+                break;
+            }
+
+            if (yeuCau !== "có") {
+                continue;
+            }
+
+            let tenBanDoc = prompt("Nhập tên bạn đọc:");
+            let tenSach = prompt("Nhập tên sách:");
+            let soNgayDaMuon;
+            let soNgayGiaHan;
+
+            do {
+                soNgayDaMuon = parseInt(prompt("Nhập số ngày đã mượn hiện tại (>= 1):"));
+            } while (isNaN(soNgayDaMuon) || soNgayDaMuon < 1);
+
+            do {
+                soNgayGiaHan = parseInt(prompt("Nhập số ngày muốn gia hạn thêm (>= 1):"));
+            } while (isNaN(soNgayGiaHan) || soNgayGiaHan < 1);
+
+            if (soNgayDaMuon + soNgayGiaHan > 60) {
+                console.log("Không được gia hạn: Tổng thời gian vượt quá 60 ngày tối đa");
+                soLanKhongThanhCong++;
+            } else if (soNgayDaMuon > 45) {
+                console.log("Không được gia hạn: Đã mượn quá lâu (>45 ngày)");
+                soLanKhongThanhCong++;
+            } else if (soNgayDaMuon + soNgayGiaHan <= 30) {
+                console.log("Gia hạn thành công");
+                soLanThanhCong++;
+            } else {
+                console.log("Không được gia hạn");
+                soLanKhongThanhCong++;
+            }
+        }
+
+        console.log("===== THỐNG KÊ CA LÀM VIỆC =====");
+        console.log("Số lần gia hạn thành công:", soLanThanhCong);
+        console.log("Số lần gia hạn không thành công:", soLanKhongThanhCong);
+    </script>
+</body>
+</html>

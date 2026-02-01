@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Kiểm kê sách thư viện</title>
+</head>
+<body>
+    <h1>Chương trình kiểm kê sách</h1>
+    <p>Mở Console (F12) để xem kết quả.</p>
+
+    <script>
+        let tongSoSach = 0;
+        let soSachMat = 0;
+        let soSachHetHang = 0;
+        let soSachTonNhieu = 0;
+        let soSachTonBinhThuong = 0;
+
+        while (true) {
+            let tiepTuc = prompt("Tiếp tục kiểm kê sách tiếp theo? (có/không)");
+
+            if (tiepTuc === "không") {
+                break;
+            }
+
+            if (tiepTuc !== "có") {
+                continue;
+            }
+
+            let maSach;
+            do {
+                maSach = prompt("Nhập mã sách:");
+            } while (!maSach);
+
+            let tenSach = prompt("Nhập tên sách:");
+            let soLuong;
+            let tinhTrang;
+
+            do {
+                soLuong = parseInt(prompt("Nhập số lượng thực tế trong kho (>= 0):"));
+            } while (isNaN(soLuong) || soLuong < 0);
+
+            do {
+                tinhTrang = parseInt(prompt("Nhập tình trạng sách (1 - Bình thường, 2 - Mất):"));
+            } while (tinhTrang !== 1 && tinhTrang !== 2);
+
+            if (tinhTrang === 2) {
+                console.log("Sách mất");
+                soSachMat++;
+            } else if (soLuong === 0) {
+                console.log("Sách hết (vẫn còn trong hệ thống)");
+                soSachHetHang++;
+            } else if (soLuong >= 10) {
+                console.log("Sách tồn kho nhiều");
+                soSachTonNhieu++;
+            } else {
+                console.log("Sách tồn kho bình thường");
+                soSachTonBinhThuong++;
+            }
+
+            tongSoSach++;
+        }
+
+        console.log("===== BÁO CÁO KIỂM KÊ =====");
+        console.log("Tổng số sách đã kiểm kê:", tongSoSach, "cuốn");
+        console.log("Số sách mất:", soSachMat, "cuốn");
+        console.log("Số sách hết hàng:", soSachHetHang, "cuốn");
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Kiểm tra trả sách thư viện</title>
+</head>
+<body>
+    <h1>Kiểm tra danh sách sách trả trong ngày</h1>
+    <p>Mở Console (F12) để xem kết quả.</p>
+
+    <script>
+        let soLuotTra = parseInt(prompt("Hôm nay có bao nhiêu lượt trả sách?"));
+
+        let tongLuotTra = 0;
+        let soLuotTraMuon = 0;
+
+        for (let i = 1; i <= soLuotTra; i++) {
+            console.log(`--- Lượt trả thứ ${i} ---`);
+
+            let tenNguoiTra = prompt("Nhập tên người trả:");
+            let tenSach = prompt("Nhập tên sách:");
+            let soNgayMuon;
+
+            do {
+                soNgayMuon = parseInt(prompt("Nhập số ngày đã mượn (>= 1):"));
+            } while (isNaN(soNgayMuon) || soNgayMuon < 1);
+
+            if (soNgayMuon <= 14) {
+                console.log("Trả đúng hạn");
+            } else if (soNgayMuon <= 21) {
+                console.log("Trả muộn nhẹ");
+                console.log("Phạt nhắc nhở");
+                soLuotTraMuon++;
+            } else {
+                console.log("Quá hạn nghiêm trọng");
+                console.log("Cần ghi biên bản phạt");
+                soLuotTraMuon++;
+            }
+
+            tongLuotTra++;
+        }
+
+        console.log("===== THỐNG KÊ TRONG NGÀY =====");
+        console.log("Tổng số lượt trả sách:", tongLuotTra);
+        console.log("Số lượt trả muộn (>= 15 ngày):", soLuotTraMuon);
+    </script>
+</body>
+</html>
