@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let taiKhoanDung = "admin";
+        let matKhauDung = "12345";
+
+        let soLanSai = 0;
+        let daKhoa = false;
+
+        while (soLanSai < 3) {
+        let taikhoan = prompt("moi ban nhap tai khoan");
+        let matKhau = prompt ("moi ban nhap mat khau");
+
+        if (taikhoan === taiKhoanDung && matkhau === matKhauDung) {
+            console.log("dang nhap thanh cong");
+            break;
+        } else {
+            soLanSai++;
+            console.log("Sai ten dang nhap hoac mat khau");
+
+            if (soLanSai === 3) {
+                daKhoa = true;
+                console.log("tai khoan da bi khoa do nhap sai 3 lan");
+            }
+
+        }
+
+        }
+    </script>
+</body>
+</html>

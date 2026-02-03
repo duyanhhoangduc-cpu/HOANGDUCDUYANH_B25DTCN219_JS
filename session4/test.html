@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let taiKhoanDung = "admin";
+        let matKhauDung = "123456";
+
+        let soLanSai = 0;
+        let daKhoa = false;
+
+        while (soLanSai < 3) {
+            let taiKhoan = prompt("Nhập tài khoản:");
+            let matKhau = prompt("Nhập mật khẩu:");
+
+            if (taiKhoan === taiKhoanDung && matKhau === matKhauDung) {
+                console.log("Đăng nhập thành công");
+                break;
+            } else {
+                soLanSai++;
+                console.log("Sai tài khoản hoặc mật khẩu");
+
+                if (soLanSai === 3) {
+                    daKhoa = true;
+                    console.log("Tài khoản đã bị khóa do nhập sai quá 3 lần");
+                }
+            }
+        }
+
+    </script>
+</body>
+
+</html>
