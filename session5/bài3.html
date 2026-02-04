@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý bổ sung sách</title>
+</head>
+<body>
+<script>
+    let booksId = [];
+    let booksName = [];
+    let inventoryQuantity = [];
+
+    let number = parseInt(prompt("Có bao nhiêu loại sách cần kiểm tra bổ sung hôm nay?"));
+
+    for (let i = 0; i < number; i++) {
+        let id;
+        do {
+            id = prompt("Nhập mã sách thứ " + (i + 1) + ":");
+        } while (!id || id.trim() === "");
+
+        let name;
+        do {
+            name = prompt("Nhập tên sách thứ " + (i + 1) + ":");
+        } while (!name || name.trim() === "");
+
+        let quantity;
+        do {
+            quantity = parseInt(prompt("Nhập số lượng tồn kho hiện tại:"));
+        } while (isNaN(quantity) || quantity < 0);
+
+        booksId.push(id.trim());
+        booksName.push(name.trim());
+        inventoryQuantity.push(quantity);
+    }
+
+    console.log("Tổng số loại sách đang kiểm tra:", booksId.length);
+
+    let lowStockCount = 0;
+    for (let i = 0; i < inventoryQuantity.length; i++) {
+        if (inventoryQuantity[i] <= 5) {
+            lowStockCount++;
+        }
+    }
+    console.log("Số lượng sách có tồn kho ≤ 5 bản:", lowStockCount);
+
+    console.log("Các mã sách đã hết hàng (tồn kho = 0):");
+    let hasOutOfStock = false;
+    for (let i = 0; i < inventoryQuantity.length; i++) {
+        if (inventoryQuantity[i] === 0) {
+            console.log("- " + booksId[i]);
+            hasOutOfStock = true;
+        }
+    }
+    if (!hasOutOfStock) {
+        console.log("Không có sách nào hết hàng");
+    }
+
+    console.log("Danh sách chi tiết sách cần kiểm tra:");
+    for (let i = 0; i < booksId.length; i++) {
+        console.log(
+            (i + 1) + ". " +
+            "Mã sách: " + booksId[i] +
+            " | Tên sách: " + booksName[i] +
+            " | Tồn kho: " + inventoryQuantity[i]
+        );
+    }
+</script>
+</body>
+</html>

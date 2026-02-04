@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý sách theo thể loại</title>
+</head>
+<body>
+<script>
+    let booksId = [];
+    let booksName = [];
+    let booksCategory = [];
+    let inventoryQuantity = [];
+
+    let n = parseInt(prompt("Có bao nhiêu loại sách cần nhập thông tin hôm nay?"));
+
+    for (let i = 0; i < n; i++) {
+        let id;
+        let isDuplicate;
+
+        do {
+            isDuplicate = false;
+            id = prompt("Nhập mã sách thứ " + (i + 1) + ":");
+            if (!id || id.trim() === "") continue;
+
+            for (let j = 0; j < booksId.length; j++) {
+                if (booksId[j] === id.trim()) {
+                    isDuplicate = true;
+                    alert("Mã sách đã tồn tại, vui lòng nhập mã khác!");
+                    break;
+                }
+            }
+        } while (!id || id.trim() === "" || isDuplicate);
+
+        let name;
+        do {
+            name = prompt("Nhập tên sách thứ " + (i + 1) + ":");
+        } while (!name || name.trim() === "");
+
+        let category;
+        do {
+            category = prompt(
+                "Nhập các thể loại của sách thứ " + (i + 1) +
+                " (các thể loại cách nhau bởi dấu phẩy):"
+            );
+        } while (!category || category.trim() === "");
+
+        let quantity;
+        do {
+            quantity = parseInt(prompt("Nhập số lượng tồn kho của sách thứ " + (i + 1) + ":"));
+        } while (isNaN(quantity) || quantity < 0);
+
+        booksId.push(id.trim());
+        booksName.push(name.trim());
+        booksCategory.push(category.trim());
+        inventoryQuantity.push(quantity);
+    }
+
+    let countProgramming = 0;
+    for (let i = 0; i < booksCategory.length; i++) {
+        if (booksCategory[i].toLowerCase().indexOf("lập trình") !== -1) {
+            countProgramming++;
+        }
+    }
+    console.log("Tổng số sách thuộc thể loại 'Lập trình':", countProgramming);
+
+    console.log("Danh sách mã sách thuộc cả hai thể loại 'JavaScript' và 'Web':");
+    let found = false;
+    for (let i = 0; i < booksCategory.length; i++) {
+        let categoryLower = booksCategory[i].toLowerCase();
+        if (
+            categoryLower.indexOf("javascript") !== -1 &&
+            categoryLower.indexOf("web") !== -1
+        ) {
+            console.log(booksId[i]);
+            found = true;
+        }
+    }
+    if (!found) {
+        console.log("Không có sách nào thỏa điều kiện");
+    }
+
+    let minIndex = 0;
+    for (let i = 1; i < inventoryQuantity.length; i++) {
+        if (inventoryQuantity[i] < inventoryQuantity[minIndex]) {
+            minIndex = i;
+        }
+    }
+
+    console.log("Loại sách có số lượng tồn kho thấp nhất:");
+    console.log(
+        "Mã sách: " + booksId[minIndex] +
+        ", Tên sách: " + booksName[minIndex] +
+        ", Tồn kho: " + inventoryQuantity[minIndex]
+    );
+</script>
+</body>
+</html>

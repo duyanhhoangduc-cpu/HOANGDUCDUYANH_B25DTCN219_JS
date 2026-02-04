@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const taiKhoanDung = "admin"
+        const matKhauDung = "12345"
+        let isLogin = false;
+
+        for(let i = 1; i <= 3; i++) {
+            let taiKhoan = prompt("nhap tai khoan: ");
+            let matKhau = prompt("nhap mat khau: ");
+
+            if (taiKhoan === taiKhoanDung && matKhau === matKhauDung) {
+                alert("dang nhap thanh cong");
+                isLogin = true;
+                break;
+            } else {
+                alert("ban da nhap sai tai khoan hoac mat khau:" + i + "/3");
+            }
+            } 
+        if (!isLogin) {
+                alert("ban da nhap sai qua nhieu lan. LOCK!!" )
+        } else {
+            let books = ["toan", "van", "anh"];
+            do {
+                choice = prompt(
+                    "===== Menu =====\n"+
+                    "1.hien thi danh sach\n"+
+                    "2.them sach moi\n"+
+                    "3.tim kiem sach\n"+
+                    "4.thoat\n"+
+                    "Moi ban nhap lua chon: "
+               );
+            switch (choice) {
+                case "1" :
+                if (books.length === 0) {
+                    alert("khong hop le");
+                } else {
+                    let = list = "danh sach cac loai sach";
+                    for ( let i = 0;i < books.length;i++) {
+                        list += ( i + 1 ) + ". " + books[i];
+                    } alert(list);
+                }
+                break;
+                
+                case "2":
+                    let newBook = prompt("nhap them sach moi");
+                    if (newBook && newBook.trim !== "") {
+                        books.push(newBook.trim());
+                        alert("đã thêm thành công")
+                    } else {
+                        alert("thêm thất bại!");
+                    }
+            }
+            }
+        }
+    </script>
+</body>
+</html>

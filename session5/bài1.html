@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý sách trả về</title>
+</head>
+<body>
+<script>
+    let returnedBooks = [];
+
+    let number = parseInt(prompt("Bạn muốn trả bao nhiêu cuốn sách?"));
+
+    for (let i = 0; i < number; i++) {
+        let bookName = prompt("Nhập tên cuốn sách thứ " + (i + 1) + ":");
+        returnedBooks.push(bookName);
+    }
+
+    console.log("Tổng số sách đã được trả:", returnedBooks.length);
+    console.log("Danh sách sách đã trả:");
+
+    for (let i = 0; i < returnedBooks.length; i++) {
+        console.log((i + 1) + ". " + returnedBooks[i]);
+    }
+</script>
+</body>
+</html>
