@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+const USERNAME = "admin";
+const PASSWORD = "12345";
+let isLogin = false;
+
+for (let i = 1; i <= 3; i++) {
+    let username = prompt("Nhập tài khoản:");
+    let password = prompt("Nhập mật khẩu:");
+
+    if (username === USERNAME && password === PASSWORD) {
+        alert("Đăng nhập thành công!");
+        isLogin = true;
+        break;
+    } else {
+        alert("Sai tài khoản hoặc mật khẩu! Lần " + i + "/3");
+    }
+}
+
+if (!isLogin) {
+    alert("Bạn đã nhập sai quá 3 lần. Chương trình kết thúc!");
+} else {
+    let books = ["Toán", "Văn", "Anh"];
+
+    let choice;
+    do {
+        choice = prompt(
+            "===== MENU QUẢN LÝ SÁCH =====\n" +
+            "1. Hiển thị danh sách sách\n" +
+            "2. Thêm sách mới\n" +
+            "3. Tìm kiếm sách\n" +
+            "0. Thoát\n" +
+            "Nhập lựa chọn của bạn:"
+        );
+
+        switch (choice) {
+            case "1":
+                if (books.length === 0) {
+                    alert("Danh sách sách đang trống!");
+                } else {
+                    let list = "Danh sách sách:\n";
+                    for (let i = 0; i < books.length; i++) {
+                        list += (i + 1) + ". " + books[i] + "\n";
+                    }
+                    alert(list);
+                }
+                break;
+
+            case "2":
+                let newBook = prompt("Nhập tên sách mới:");
+                if (newBook && newBook.trim() !== "") {
+                    books.push(newBook.trim());
+                    alert("Đã thêm sách thành công!");
+                } else {
+                    alert("Tên sách không hợp lệ!");
+                }
+                break;
+
+            case "3":
+                let search = prompt("Nhập tên sách cần tìm:");
+                let found = false;
+                for (let book of books) {
+                    if (book.toLowerCase() === search.toLowerCase()) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found) {
+                    alert("Sách \"" + search + "\" có trong thư viện.");
+                } else {
+                    alert("Không tìm thấy sách!");
+                }
+                break;
+
+            case "0":
+                alert("Thoát chương trình. Tạm biệt!");
+                break;
+
+            default:
+                alert("Lựa chọn không hợp lệ!");
+        }
+
+    } while (choice !== "0");
+}
+
+    </script>
+</body>
+</html>

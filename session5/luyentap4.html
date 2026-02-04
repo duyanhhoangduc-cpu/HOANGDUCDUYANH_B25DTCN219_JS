@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let studentString = `    mai   , độ, linh    `;
+        let students = studentString
+            .trim()              // bỏ khoảng trắng đầu & cuối chuỗi
+            .split(",")          // tách theo dấu phẩy
+            .map(name => name.trim()); // bỏ khoảng trắng từng tên
+        console.log(students);
+        //case tìm kiếm
+
+        let name = prompt("Nhập tên sách cần tìm:");
+let index = books.indexOf(name);
+
+if (index !== -1) {
+    alert("Sách " + name + " được tìm thấy tại vị trí " + index);
+} else {
+    alert("Không tìm thấy");
+}
+//case ud
+let oldName = prompt("Nhập tên sách cần sửa:");
+let index = books.indexOf(oldName);
+
+if (index !== -1) {
+    let newName = prompt("Nhập tên sách mới:");
+    books[index] = newName;
+    alert("Cập nhật thành công");
+} else {
+    alert("Sách không tồn tại");
+}
+
+
+    </script>
+
+</body>
+
+</html>

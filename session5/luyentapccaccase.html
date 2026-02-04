@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    case "1" :
+        if ( books.leghth  === 0) {
+            alert("ko hop le");
+        } else {
+            let list = "danh sach sach \n";
+            for ( let i = 0; i < books.leghth; i++) {
+                list += ( i + 1) + ". " + books[i] + "\n";
+            }
+            alert(list);
+        }
+        break;
+ //case xoa
+        case "4":
+    if (books.length === 0) {
+        alert("Danh sách sách đang trống, không thể xóa!");
+        break;
+    }
+
+    let list = "Danh sách sách:\n";
+    for (let i = 0; i < books.length; i++) {
+        list += (i + 1) + ". " + books[i] + "\n";
+    }
+
+    let deleteIndex = prompt(
+        list + "\nNhập thứ tự sách cần xóa:"
+    );
+
+    let index = Number(deleteIndex);
+
+    if (Number.isInteger(index) && index >= 1 && index <= books.length) {
+        let deletedBook = books.splice(index - 1, 1);
+        alert("Đã xóa sách: " + deletedBook[0]);
+    } else {
+        alert("Thứ tự sách không hợp lệ!");
+    }
+    break;
+</body>
+</html>

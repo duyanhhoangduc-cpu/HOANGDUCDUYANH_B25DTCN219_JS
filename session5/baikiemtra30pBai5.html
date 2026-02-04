@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //câu1:
+        let names = "Quý, Nam, Lan, Hùng, Nam";
+        console.log("Chuỗi ban đầu:", names);
+
+        let students = names.split(", ");
+        console.log("Mảng students:", students);
+
+        students.reverse();
+        console.log("Mảng sau khi đảo ngược:", students);
+
+        if (students.includes("Lan")) {
+            console.log("Tên Lan tồn tại trong mảng");
+        } else {
+            console.log("Tên Lan không tồn tại trong mảng");
+        }
+
+        let indexNam = students.indexOf("Nam");
+        console.log("Vị trí đầu tiên của Nam là:", indexNam);
+
+
+        //cau2
+        let prices = [100, 200, 300, 400];
+        console.log("Duyệt mảng bằng for,of:");
+        for (let price of prices) {
+            console.log(price);
+        }
+        console.log("Duyệt mảng bằng for,in :");
+        for (let index in prices) {
+            console.log(index);
+        }
+       
+    </script>
+</body>
+
+</html>

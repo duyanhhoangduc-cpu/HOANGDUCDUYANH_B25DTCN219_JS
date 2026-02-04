@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const taiKhoanDung = "admin";
+        const matKhauDung = "12345";
+        let isLogin = false;
+
+        for (let i = 1; i <= 3; i++) {
+            let taiKhoan = prompt("Dang nhap tai khoan: ");
+            let matKhau = prompt("nhap mat khau: ");
+
+            if (taikhoan === taiKhoanDung && matKhau === matKhauDung) {
+                alert("ban da dang nahp thanh cong!");
+                isLogin = true;
+                break;
+            } else {
+                alert("sai ten dang nhap hoac mat khau!" + i + "/3");
+            }
+        }
+
+        if (!isLogin) {
+            alert("ban da nhap sai qua 3 lan.THOAT!");
+
+        } else {
+            let books = ["Toán", "Văn", "Anh"];
+            let choice;
+            do {
+                choice = prompt(
+                    "===== Menu =====\n
+                    1.Hiển thị danh sách\n
+                    2.thêm sách mới\n
+                    3.tìm kiếm sách\n
+                    4.thoát\.
+                    Moi ban nhap lua chon cua ban!"
+                );
+                switch (choice) {
+                    case "1":
+                        if (books.length === 0) {
+                            alert("danh sach dang trong!");
+                        } else {
+                            for (let i = 0; i < books.length; i++) {
+                                list += (i + 1) + ". " + book[i] + "\n";
+                            } alert(list);
+                        }
+                        break;
+                    case "2":
+                        let newBook = prompt("Nhap them sach moi: ");
+                        if (newBook && newBook.trim !== "") {
+                            books.push(newBook.trim());
+                            alert("da them thanh cong!");
+                        } else {
+                            alert("ten sach khong hop le!");
+                        }
+                        break;
+                    case "3":
+                        let search = prompt("Nhập tên sách cần tìm:");
+                        if (!search || search.trim() === "") {
+                            alert("Tên sách tìm kiếm không hợp lệ!");
+                            break;
+                        }
+                        let result = "";
+                        let found = false;
+                        for (let i = 0; i < books.length; i++) {
+                            if (books[i].toLowerCase() === search.toLowerCase()) {
+                                result += "Tên sách: " + books[i] +
+                                    " | Thứ tự: " + (i + 1) + "\n";
+                                found = true;
+                            }
+                        }
+                        if (found) {
+                            alert("KẾT QUẢ TÌM KIẾM:\n" + result);
+                        } else {
+                            alert("Không tìm thấy sách!");
+                        }
+                        break;
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
