@@ -6,10 +6,11 @@
     <title>Document</title>
 </head>
 <body>
-    <script>
-        let maxLogin = 3;
+<script>
+let maxLogin = 3;
 let loggedIn = false;
 
+// ===== ĐĂNG NHẬP =====
 for (let i = 1; i <= maxLogin; i++) {
     let username = prompt("Nhập tài khoản:");
     let password = prompt("Nhập mật khẩu:");
@@ -29,6 +30,7 @@ for (let i = 1; i <= maxLogin; i++) {
     }
 }
 
+// ===== MENU =====
 while (loggedIn) {
     let menu = prompt(
         "===== MENU =====\n" +
@@ -40,6 +42,7 @@ while (loggedIn) {
         "Chọn chức năng (1-5):"
     );
 
+    // ===== CHỨC NĂNG 1 =====
     if (menu === "1") {
         let total = 0;
         let even = 0;
@@ -60,27 +63,27 @@ while (loggedIn) {
         );
     }
 
+    // ===== CHỨC NĂNG 2 =====
     else if (menu === "2") {
-    let rows = Number(prompt("Nhập số Hàng:"));
-    let cols = Number(prompt("Nhập số Cột:"));
-    let result = "";
+        let rows = Number(prompt("Nhập số Hàng:"));
+        let cols = Number(prompt("Nhập số Cột:"));
+        let result = "";
 
-    for (let i = 1; i <= rows; i++) {
-        for (let j = 1; j <= cols; j++) {
-            if (i === j) {
-                result += "[" + i + " - " + j + "] (Kệ ưu tiên)\n";
-            } else {
-                result += "[" + i + " - " + j + "]\n";
+        for (let i = 1; i <= rows; i++) {
+            for (let j = 1; j <= cols; j++) {
+                if (i === j) {
+                    result += "[" + i + " - " + j + "] (Kệ ưu tiên)\n";
+                } else {
+                    result += "[" + i + " - " + j + "]\n";
+                }
             }
         }
+
+        console.log(result);
+        alert("Sơ đồ kho đã được in ra Console");
     }
 
-    console.log(result);
-    alert("Sơ đồ kho đã được in ra Console");
-}
-
-    }
-
+    // ===== CHỨC NĂNG 3 =====
     else if (menu === "3") {
         let books = Number(prompt("Nhập số lượng sách:"));
         let cost = Number(prompt("Nhập phí bảo trì hiện tại (1 cuốn):"));
@@ -98,6 +101,7 @@ while (loggedIn) {
         alert("Bảng dự toán đã được in ra Console");
     }
 
+    // ===== CHỨC NĂNG 4 =====
     else if (menu === "4") {
         let N = Number(prompt("Nhập N:"));
         let list = [];
@@ -116,6 +120,7 @@ while (loggedIn) {
         );
     }
 
+    // ===== THOÁT =====
     else if (menu === "5") {
         alert("Hệ thống đang đăng xuất...");
         break;
@@ -125,6 +130,6 @@ while (loggedIn) {
         alert("Lựa chọn không hợp lệ");
     }
 }
-    </script>
+</script>
 </body>
 </html>

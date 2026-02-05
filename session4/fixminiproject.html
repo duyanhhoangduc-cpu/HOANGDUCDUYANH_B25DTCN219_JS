@@ -6,8 +6,8 @@
     <title>Document</title>
 </head>
 <body>
-    <script>
-        let maxLogin = 3;
+<script>
+let maxLogin = 3;
 let loggedIn = false;
 
 for (let i = 1; i <= maxLogin; i++) {
@@ -61,24 +61,22 @@ while (loggedIn) {
     }
 
     else if (menu === "2") {
-    let rows = Number(prompt("Nhập số Hàng:"));
-    let cols = Number(prompt("Nhập số Cột:"));
-    let result = "";
+        let rows = Number(prompt("Nhập số Hàng:"));
+        let cols = Number(prompt("Nhập số Cột:"));
+        let result = "";
 
-    for (let i = 1; i <= rows; i++) {
-        for (let j = 1; j <= cols; j++) {
-            if (i === j) {
-                result += "[" + i + " - " + j + "] (Kệ ưu tiên)\n";
-            } else {
-                result += "[" + i + " - " + j + "]\n";
+        for (let i = 1; i <= rows; i++) {
+            for (let j = 1; j <= cols; j++) {
+                if (i === j) {
+                    result += "[" + i + " - " + j + "] (Kệ ưu tiên)\n";
+                } else {
+                    result += "[" + i + " - " + j + "]\n";
+                }
             }
         }
-    }
 
-    console.log(result);
-    alert("Sơ đồ kho đã được in ra Console");
-}
-
+        console.log(result);
+        alert("Sơ đồ kho đã được in ra Console");
     }
 
     else if (menu === "3") {
@@ -125,6 +123,6 @@ while (loggedIn) {
         alert("Lựa chọn không hợp lệ");
     }
 }
-    </script>
+</script>
 </body>
 </html>
