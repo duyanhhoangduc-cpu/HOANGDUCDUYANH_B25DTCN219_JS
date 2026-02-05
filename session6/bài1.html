@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Bài tập mảng</title>
+</head>
+<body>
+    <script>
+        let input = prompt("Nhập các số nguyên, cách nhau bởi dấu phẩy");
+        let arr = input.split(",").map(Number);
+        let result = [];
+
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i] >= 10) {
+                result.push(arr[i]);
+            }
+        }
+
+        if (result.length > 0) {
+            console.log(result.join(" "));
+        } else {
+            console.log("Không có số nào lớn hơn 10");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Loại bỏ falsy</title>
+</head>
+<body>
+    <script>
+        let arr1 = ["", false, 0, 5, 10, "Hello world!"];
+        let arr2 = ["", false, 0, undefined, null];
+        let arr3 = [NaN, "test", 4];
+        let arr4 = ["JavaScript", 0, null, true, 7, " "];
+
+        console.log(arr1.filter(Boolean));
+        console.log(arr2.filter(Boolean));
+        console.log(arr3.filter(Boolean));
+        console.log(arr4.filter(Boolean));
+    </script>
+</body>
+</html>

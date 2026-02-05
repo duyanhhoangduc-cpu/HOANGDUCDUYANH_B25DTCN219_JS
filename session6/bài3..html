@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Đếm số nguyên âm</title>
+</head>
+<body>
+    <script>
+        let n = Number(prompt("Nhập n"));
+
+        if (n < 0) {
+            console.log("Số lượng phần tử không hợp lệ");
+        } else if (n === 0) {
+            console.log("Mảng không có phần tử");
+        } else {
+            let arr = [];
+            let count = 0;
+
+            for (let i = 0; i < n; i++) {
+                let x = Number(prompt("Nhập phần tử thứ " + i));
+                arr.push(x);
+                if (Number.isInteger(x) && x < 0) {
+                    count++;
+                }
+            }
+
+            console.log(arr);
+            console.log(count);
+        }
+    </script>
+</body>
+</html>

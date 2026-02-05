@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Ký tự số</title>
+</head>
+<body>
+    <script>
+        let n = Number(prompt("Nhập n"));
+
+        if (n === 0) {
+            console.log("Không có ký tự số");
+        } else {
+            let arr = [];
+            let result = [];
+
+            for (let i = 0; i < n; i++) {
+                let ch = prompt("Nhập ký tự");
+                arr.push(ch);
+                if (ch >= '0' && ch <= '9') {
+                    result.push(ch);
+                }
+            }
+
+            if (result.length > 0) {
+                console.log(result.join(" "));
+            } else {
+                console.log("Không có ký tự số");
+            }
+        }
+    </script>
+</body>
+</html>

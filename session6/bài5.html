@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Tổng ký tự số</title>
+</head>
+<body>
+    <script>
+        let n = Number(prompt("Nhập n"));
+
+        if (n < 0) {
+            console.log("Số lượng phần tử không được âm");
+        } else if (n === 0) {
+            console.log("Mảng không có phần tử");
+        } else {
+            let sum = 0;
+            let hasNumber = false;
+
+            for (let i = 0; i < n; i++) {
+                let ch = prompt("Nhập ký tự");
+                if (!isNaN(ch) && ch !== "") {
+                    sum += Number(ch);
+                    hasNumber = true;
+                }
+            }
+
+            if (hasNumber) {
+                console.log(sum);
+            } else {
+                console.log("Không có phần tử nào là số");
+            }
+        }
+    </script>
+</body>
+</html>

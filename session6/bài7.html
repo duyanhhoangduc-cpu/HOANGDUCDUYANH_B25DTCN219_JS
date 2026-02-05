@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Số lớn thứ hai</title>
+</head>
+<body>
+    <script>
+        let n = Number(prompt("Nhập n"));
+
+        if (n < 0) {
+            console.log("Số lượng phần tử không được nhỏ hơn 0");
+        } else if (n === 0) {
+            console.log("Mảng không có phần tử nào");
+        } else {
+            let arr = [];
+
+            for (let i = 0; i < n; i++) {
+                arr.push(Number(prompt("Nhập phần tử")));
+            }
+
+            let max = -Infinity;
+            let secondMax = -Infinity;
+
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i] > max) {
+                    secondMax = max;
+                    max = arr[i];
+                } else if (arr[i] < max && arr[i] > secondMax) {
+                    secondMax = arr[i];
+                }
+            }
+
+            console.log(secondMax);
+        }
+    </script>
+</body>
+</html>
