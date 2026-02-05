@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu mảng</title>
+</head>
+<body>
+<script>
+    let arr = [];
+
+    while (true) {
+        let choice = prompt(
+`================== MENU ===================
+1. Nhập số phần tử và giá trị các phần tử
+2. In ra các phần tử đang quản lý
+3. In ra các phần tử chẵn, tính tổng và sắp xếp giảm dần
+4. In ra giá trị lớn nhất, nhỏ nhất và vị trí của chúng 
+5.In ra các số nguyên tố trong mảng và tính tổng 
+6. Nhập một số và đếm số lần xuất hiện
+7. Thêm một phần tử vào vị trí chỉ định
+8. Xóa một phần tử theo giá trị 
+9. Sắp xếp mảng tăng hoặc giảm (chưa hoàn chỉnh)
+0. Thoát
+===========================================
+Lựa chọn của bạn:`);
+
+        if (choice == 1) {
+            let n = Number(prompt("Nhập số phần tử"));
+            arr = [];
+            for (let i = 0; i < n; i++) {
+                arr.push(Number(prompt("Nhập phần tử")));
+            }
+        }
+
+        else if (choice == 2) {
+            console.log(arr);
+        }
+
+        else if (choice == 3) {
+            let even = [];
+            let sum = 0;
+
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i] % 2 === 0) {
+                    even.push(arr[i]);
+                    sum += arr[i];
+                }
+            }
+
+            even.sort(function(a, b) {
+                return b - a;
+            });
+
+            console.log(even);
+            console.log("Tổng:", sum);
+        }
+
+        else if (choice == 6) {
+            let x = Number(prompt("Nhập số cần đếm"));
+            let count = 0;
+
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i] === x) {
+                    count++;
+                }
+            }
+
+            console.log("Số lần xuất hiện:", count);
+        }
+
+        else if (choice == 7) {
+            let value = Number(prompt("Nhập giá trị cần thêm"));
+            let index = Number(prompt("Nhập vị trí cần thêm"));
+
+            if (index >= 0 && index <= arr.length) {
+                arr.splice(index, 0, value);
+                console.log(arr);
+            } else {
+                console.log("Vị trí không hợp lệ");
+            }
+        }
+
+        else if (choice == 9) {
+            let type = prompt("Nhập 1 để tăng, 2 để giảm");
+
+            if (type == 1) {
+                arr.sort(function(a, b) {
+                    return a - b;
+                });
+            } 
+            else if (type == 2) {
+                arr.sort(function(a, b) {
+                    return b - a;
+                });
+            }
+
+            console.log(arr);
+        }
+
+        else if (choice == 0) {
+            break;
+        }
+
+        else {
+            alert("Lựa chọn không hợp lệ");
+        }
+    }
+</script>
+</body>
+</html>
