@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý thư viện</title>
+</head>
+<body>
+    <script>
+        let maxLogin = 3;
+        let succsess = false;
+
+        for (let i = 1; i <= 3; i++ ) {
+            let taiKhoan = propmt("nhập tài khoản: ");
+            let matKhau = prompt("nhap mat khau: ");
+
+            if (taiKhoan === admin && matKhau === 12345 ) {
+                alert("dang nhap thanh cong!");
+                succsess = true;
+                break;
+            } else {
+                alert("sai tai khoan hoac mat khau")
+            }
+
+        }
+    </script>
+</body>
+</html>
