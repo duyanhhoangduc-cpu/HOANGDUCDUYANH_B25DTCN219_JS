@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý đội bóng</title>
+</head>
+<body>
+<script>
+let players = [];
+let goals = [];
+
+function addPlayer(name, goal) {
+    players.push(name);
+    goals.push(goal);
+    console.log("Đã thêm " + name + " thành công.");
+}
+
+function showSquad() {
+    if (players.length === 0) {
+        console.log("Đội bóng hiện chưa có cầu thủ.");
+        return;
+    }
+    for (let i = 0; i < players.length; i++) {
+        console.log((i + 1) + ". " + players[i] + " - " + goals[i] + " bàn");
+    }
+}
+
+const getTotalGoals = function () {
+    let total = 0;
+    for (let i = 0; i < goals.length; i++) {
+        total += goals[i];
+    }
+    return total;
+};
+
+function findMostGoals(goalsArray) {
+    let max = goalsArray[0];
+    for (let i = 1; i < goalsArray.length; i++) {
+        if (goalsArray[i] > max) {
+            max = goalsArray[i];
+        }
+    }
+    return max;
+}
+
+function main() {
+    let choice;
+    do {
+        choice = prompt(
+            "--- QUẢN LÝ ĐỘI BÓNG ---\n" +
+            "1. Nhập cầu thủ mới\n" +
+            "2. Xem danh sách đội hình\n" +
+            "3. Xem thành tích toàn đội\n" +
+            "4. Tìm Vua phá lưới\n" +
+            "0. Thoát\n\n" +
+            "Người dùng chọn:"
+        );
+
+        switch (choice) {
+            case "1":
+                let name = prompt("Nhập tên cầu thủ:");
+                let goal = Number(prompt("Nhập số bàn thắng:"));
+                addPlayer(name, goal);
+                alert("Đã thêm " + name + " thành công.");
+                break;
+
+            case "2":
+                showSquad();
+                break;
+
+            case "3":
+                alert("Tổng số bàn thắng của cả đội là: " + getTotalGoals() + " bàn.");
+                break;
+
+            case "4":
+                if (goals.length === 0) {
+                    alert("Chưa có dữ liệu cầu thủ.");
+                } else {
+                    let maxGoals = findMostGoals(goals);
+                    let index = goals.indexOf(maxGoals);
+                    alert("Vua phá lưới hiện tại: " + players[index] + " - " + maxGoals + " bàn.");
+                }
+                break;
+
+            case "0":
+                alert("Thoát chương trình.");
+                break;
+
+            default:
+                alert("Lựa chọn không hợp lệ!");
+        }
+    } while (choice !== "0");
+}
+
+main();
+</script>
+</body>
+</html>
