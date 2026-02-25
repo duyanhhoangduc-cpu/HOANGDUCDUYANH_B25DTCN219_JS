@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function locSanPhamCaoCap(products) {
+    let sanPhamCaoCap = products.filter(product => product.price > 500);
+
+    if (sanPhamCaoCap.length > 0) {
+        console.log("Danh sách sản phẩm cao cấp:");
+        sanPhamCaoCap.forEach(product => {
+            console.log("Tên:", product.name, "- Giá:", product.price);
+        });
+    } else {
+        console.log("Không có sản phẩm cao cấp nào.");
+    }
+}
+    function timSanPham(products) {
+    let keyword = prompt("Nhập từ khóa tìm kiếm:").toLowerCase();
+
+    let ketQua = products.filter(product =>
+        product.name.toLowerCase().includes(keyword)
+    );
+
+    if (ketQua.length > 0) {
+        console.log("Kết quả tìm thấy:");
+        ketQua.forEach(product => {
+            console.log(
+                "Tên:", product.name,
+                "- Giá:", product.price,
+                "- Số lượng:", product.stock
+            );
+        });
+    } else {
+        console.log("Không tìm thấy sản phẩm phù hợp.");
+    }
+}
+    </script>
+</body>
+</html>

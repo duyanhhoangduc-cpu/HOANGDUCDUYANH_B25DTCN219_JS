@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const squad = [
+    ["Nguyen Van A", 10, "FW"],
+    ["Tran Van B", 5, "MF"],
+    ["Le Van C", 2, "DF"],
+    ["Pham Van D", 12, "FW"],
+    ["Hoang Van E", 0, "GK"],
+    ["Dang Van F", 7, "MF"]
+];
+function viewSquad() {
+    console.log("=== DANH SÁCH CẦU THỦ ===");
+    squad.forEach(player => {
+        console.log(`${player[0]} (${player[2]}): ${player[1]} bàn thắng`);
+    });
+}
+
+function findPlayer() {
+    let name = prompt("Nhập tên cầu thủ cần tìm:");
+    let player = squad.find(p => p[0].toLowerCase() === name.toLowerCase());
+
+    if (player) {
+        console.log("=== THÔNG TIN CẦU THỦ ===");
+        console.log(`Tên: ${player[0]}`);
+        console.log(`Bàn thắng: ${player[1]}`);
+        console.log(`Vị trí: ${player[2]}`);
+    } else {
+        console.log(" Không tìm thấy cầu thủ!");
+    }
+}
+
+function filterByPosition() {
+    let position = prompt("Nhập vị trí muốn lọc (FW/MF/DF/GK):").toUpperCase();
+    let result = squad.filter(p => p[2] === position);
+
+    console.log("=== KẾT QUẢ LỌC ===");
+
+    if (result.length > 0) {
+        result.forEach(p => {
+            console.log(`- ${p[0]} (${p[1]} bàn)`);
+        });
+    } else {
+        console.log("❌ Không có cầu thủ ở vị trí này!");
+    }
+}
+
+function totalGoals() {
+    let total = squad.reduce((sum, player) => sum + player[1], 0);
+    console.log(`=> Tổng số bàn thắng toàn đội: ${total} bàn`);
+}
+
+function checkPerformance() {
+    let hasZero = squad.some(p => p[1] === 0);
+    let allScored = squad.every(p => p[1] > 0);
+
+    if (hasZero) {
+        console.log("⚠ Có cầu thủ chưa ghi bàn.");
+    }
+
+    if (allScored) {
+        console.log("✅ Tất cả cầu thủ đều đã ghi bàn.");
+    } else {
+        console.log("❌ Không phải tất cả cầu thủ đều ghi bàn.");
+    }
+}
+
+function menu() {
+    let choice;
+    do {
+        choice = prompt(`
+--- QUẢN LÝ ĐỘI BÓNG ---
+1. Xem danh sách
+2. Tìm kiếm (Find)
+3. Lọc vị trí (Filter)
+4. Tổng bàn thắng (Reduce)
+5. Kiểm tra hiệu suất (Some/Every)
+0. Thoát
+        `);
+
+        switch (choice) {
+            case "1":
+                viewSquad();
+                break;
+            case "2":
+                findPlayer();
+                break;
+            case "3":
+                filterByPosition();
+                break;
+            case "4":
+                totalGoals();
+                break;
+            case "5":
+                checkPerformance();
+                break;
+            case "0":
+                console.log("Hẹn gặp lại!");
+                break;
+            default:
+                console.log("Lựa chọn không hợp lệ!");
+        }
+
+    } while (choice !== "0");
+}
+
+menu();
+    </script>
+</body>
+</html>

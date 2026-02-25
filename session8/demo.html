@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let students = ["anh", "linh", "mai linh"];
+        let scores = [8, 9, 10];
+        //forEach
+        //dung de duyet mang
+        //arr là bản thân chính cái mảng đó
+        students.forEach(function(element, index, arr) {   
+        //cách phổ biến : students.forEach((element, index, arr) => {})
+            console.log("giá trị phần tử: ", element);
+            console.log("chỉ số phần tử: ", index);
+            console.log("mảng ban đầu: ", arr);
+        })
+        //MAP
+        //duyệt qua mảng và trả về 1 mảng mới ( độ dài, số lượng ptu = mảng cũ)
+        //vdu: tạo bảng điểm mới dựa trên bảng điểm ban đầu
+        let newScore = score.map((element, index) => element/2)
+        console.log(newScore);
+        //FILTER
+        //duyệt và lọc rồi trả về 1 mảng mới
+        //ứng dụng vdu: tìm sinh viên có chữ a
+        let temp = students.filter((element, index) => element.includes("a"))
+        console.log(temp);
+        let goodScore = scores.filter(element => element > 9)
+        console.log(goodScore);
+        //EVERY & SOME
+        //Every kiểm tra tất cả các phần tử thỏa mãn điều kiện
+        //Some chỉ kiểm tra một trong các phần tử thỏa mãn điều kiện
+        //trả về true hoặc false ko trả về mảng mới
+        let check = scores.every((element) => element >= 0)
+        let check = scores.some((element) => element < 0 )
+        //find
+        //tìm theo giá trị
+        let findStudents = students.find((element) => element === "Anh")
+        console.log(findStudents);
+        //findindex
+        //tìm theo chỉ số
+        let findStudents2 = students.findIndex((element) => element === "linh" )
+        console.log(findStudents2);
+        //reduce
+        //đóng gói mảng thành 1 giá trị duy nhất
+        let totalScores = scores.reduce((accumulative, element , index, arr) => {
+            accumulative += element;
+            return accumulative;
+        }, 0)
+        console.log(totalScore);
+        //0 là giá trị khởi đầu
+
+
+
+        function locSanPhamCaoCap(products) {
+        let sanPhamCaoCap = products
+        .filter(product => product.price > 500) // lọc
+        .map(product => product.name);          // lấy tên
+
+    if (sanPhamCaoCap.length > 0) {
+        console.log("Sản phẩm cao cấp:", sanPhamCaoCap.join(", "));
+    } else {
+        console.log("Không có sản phẩm cao cấp nào.");
+    }
+}
+         
+    </script>
+</body>
+</html>

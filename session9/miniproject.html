@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+let names  = ["Laptop", "Phone", "Tablet", "Monitor", "Keyboard", "Mouse"];
+let prices = [1200, 800, 450, 600, 150, 90];
+let stocks = [5, 0, 10, 3, 20, 15];
+function showMenu() {
+    return prompt(
+`--- QUẢN LÝ KHO HÀNG ---
+1. Lọc sản phẩm cao cấp (>500)
+2. Kiểm định trạng thái dữ liệu
+3. Phân tích giá trị vốn hóa
+4. Giảm giá 10% toàn bộ
+5. Tìm sản phẩm theo từ khóa
+6. Báo cáo tồn kho
+7. Thoát
+
+Chọn chức năng (1-7):`
+    );
+}
+function filterPremium() {
+    const premium = names.filter((name, index) => prices[index] > 500);
+    alert("Sản phẩm cao cấp:\n" + (premium.length ? premium.join("\n") : "Không có"));
+}
+
+function checkStatus() {
+    const hasOutOfStock = stocks.some(stock => stock === 0);
+    const allAbove100 = prices.every(price => price > 100);
+
+    alert(
+`Kiểm định trạng thái:
+- Có sản phẩm hết hàng? ${hasOutOfStock ? "Có" : "Không"}
+- Tất cả giá > 100? ${allAbove100 ? "Có" : "Không"}`
+    );
+}
+function calculateCapital() {
+    const total = prices.reduce((sum, price, index) => {
+        return sum + price * stocks[index];
+    }, 0);
+
+    alert("Tổng giá trị vốn hóa kho: " + total);
+}
+function applyDiscount() {
+    prices = prices.map(price => +(price * 0.9).toFixed(2));
+    alert("Đã giảm giá 10% cho toàn bộ sản phẩm.");
+}
+function searchProduct() {
+    const keyword = prompt("Nhập từ khóa tìm kiếm:").toLowerCase();
+
+    const results = names
+        .map((name, index) => ({
+            name,
+            price: prices[index],
+            stock: stocks[index]
+        }))
+        .filter(product => product.name.toLowerCase().includes(keyword));
+
+    if (results.length === 0) {
+        alert("Không tìm thấy sản phẩm.");
+    } else {
+        alert(
+            results
+                .map(p => `${p.name} - ${p.price} - ${p.stock}`)
+                .join("\n")
+        );
+    }
+}
+
+function stockReport() {
+    const report = names.map((name, index) => {
+        const status = stocks[index] > 0 ? "Còn hàng" : "Hết hàng";
+        return `${name} - ${status}`;
+    });
+
+    alert("Báo cáo tồn kho:\n" + report.join("\n"));
+}
+while (true) {
+    const choice = showMenu();
+
+    switch (choice) {
+        case "1":
+            filterPremium();
+            break;
+        case "2":
+            checkStatus();
+            break;
+        case "3":
+            calculateCapital();
+            break;
+        case "4":
+            applyDiscount();
+            break;
+        case "5":
+            searchProduct();
+            break;
+        case "6":
+            stockReport();
+            break;
+        case "7":
+            alert("Hẹn gặp lại!");
+            break;
+        default:
+            alert("Lựa chọn không hợp lệ!");
+    }
+
+    if (choice === "7") break;
+}
+    </script>
+</body>
+</html>

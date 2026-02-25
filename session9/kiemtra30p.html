@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let orders = ["Đơn hàng A", "Đơn hàng B", "Đơn hàng C", "Đơn hàng D","Đơn hàng E"];
+        let revenues = [1500, 2800, 1200, -500, 3200];
+
+        let error = revenues.some((element) => element < 0 )
+        console.log(error);
+        let limited = revenues.every((element) => element > 500 )
+        console.log(limited);
+        let netProfits  = revenues.map((element) => element - ( element * 0.1 ))
+        console.log(netProfits);
+
+        function giamGia(prices) {
+    prices.forEach((price, index) => {
+    prices[index] = price * 0.9;
+    });
+}
+    </script>
+</body>
+</html>
