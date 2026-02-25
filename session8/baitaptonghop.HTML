@@ -47,7 +47,7 @@ function filterByPosition() {
             console.log(`- ${p[0]} (${p[1]} bàn)`);
         });
     } else {
-        console.log("❌ Không có cầu thủ ở vị trí này!");
+        console.log(" Không có cầu thủ ở vị trí này!");
     }
 }
 
@@ -61,13 +61,13 @@ function checkPerformance() {
     let allScored = squad.every(p => p[1] > 0);
 
     if (hasZero) {
-        console.log("⚠ Có cầu thủ chưa ghi bàn.");
+        console.log(" Có cầu thủ chưa ghi bàn.");
     }
 
     if (allScored) {
-        console.log("✅ Tất cả cầu thủ đều đã ghi bàn.");
+        console.log(" Tất cả cầu thủ đều đã ghi bàn.");
     } else {
-        console.log("❌ Không phải tất cả cầu thủ đều ghi bàn.");
+        console.log("Không phải tất cả cầu thủ đều ghi bàn.");
     }
 }
 
