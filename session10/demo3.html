@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let squad = [
+    { id: 1, name: "Nguyen Van A", position: "FW", goals: 10 },
+    { id: 2, name: "Tran Van B", position: "MF", goals: 5 },
+    { id: 3, name: "Le Van C", position: "DF", goals: 2 }
+];
+
+funtion showSquad() {
+    console.log("=== danh sách các cầu thủ ===");
+
+    squad.forEach(player => {
+        console.log(`Mã ${player.id} - ${player.name}  (${player.position}) : ${player.goals} bàn`);
+        
+    });
+}
+funtion addplayer(){
+    let name = prompt("nhap ten: ");
+    let id = number(prompt("nhap : "));
+}
+    </script>
+</body>
+</html>

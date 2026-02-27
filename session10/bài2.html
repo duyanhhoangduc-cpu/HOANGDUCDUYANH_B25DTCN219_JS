@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const player = {
+    name: "De Bruyne",
+    position: "Midfielder",
+    goals: 8,
+    assists: 25,
+    matchesPlayed: 35
+};
+
+function addPerformanceScore(player) {
+    let performance = (player.goals + player.assists) / player.matchesPlayed;
+    performance = Number(performance.toFixed(2));
+
+    player.performancePerMatch = performance;
+    player.isKeyPlayer = performance >= 1.0 ? true : false;
+
+    console.log(player);
+}
+
+addPerformanceScore(player);
+    </script>
+</body>
+</html>

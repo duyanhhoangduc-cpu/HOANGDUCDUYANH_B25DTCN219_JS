@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //**Mảng đối tượng**
+        let students = [{
+            id:1,
+            name: "Linh"
+        },
+        {
+            id:2,
+            name: "i miss her"
+        }
+    ]
+        //thêm sinh viên vào mảng
+        let id = +prompt("nhap id sinh viên");
+        let studentName = prompt("nhap ten sinh vien");
+        let newStudent = {
+            id: id,
+            name: studentName
+        }
+        students.push(newStudent)
+        console.log(students);
+        //tìm kiếm sinh viên trong mảng
+        let findName = prompt("Nhap ten sinh vien can tim kiem ");
+        let findStudent = student.find(student => student.name === findName)
+    </script>
+</body>
+</html>

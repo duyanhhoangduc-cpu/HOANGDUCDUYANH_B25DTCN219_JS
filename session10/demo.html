@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let myObj = {
+            key: "value", 
+            key2: "value2"
+        }
+
+        let student = {
+            id: 1, 
+            firstName:"Hoàng",
+            lastname:"Anh"
+        }
+        //in ra 1 đối tượng
+        console.log(student);
+        //đọc từng thuộc tính bên trong 1 đối tượng
+        //vdu in ra firstname
+        console.log(student.firstName);
+        //tạo mới 1 thuộc tính mới:
+        student.age = 20;        
+        console.log(student);
+        //truy cập 1 thuộc tính đặt theo biến khác bên ngoài
+        let input = "age";
+        console.log(student[input]);
+        //update
+        //giống với tạo mới
+        //delete
+        delete student.age;
+        console.log(student);
+        //lưu ý:thuộc tính ko tồn tại =>undefined
+
+        
+        
+
+    </script>
+</body>
+</html>
