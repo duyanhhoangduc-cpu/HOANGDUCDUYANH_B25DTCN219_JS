@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let students = [];
+
+        function thoigianthuc(){
+            return Date.now();
+        }
+
+        function validate({id, name, age, gba, status }) {
+            if (!id || !name) return false;
+            if (isNaN(age) || age < 16 || age > 60) return false;
+            if (isNaN(gba) || gba < 0 || gba > 10) return false;
+            if (!["active","inactive"].includes(status)) return false;
+            if (students.some(s => s.id = id )) return false;
+            return true;
+        }
+
+        function nhapstudentdata(isUpdate = false) {
+            let id = prompt("nhap id: ");
+            let name = prompt("nhap ten: ");
+            let age = Number(prompt("nhap tuoi: "));
+            let gba = Number(prompt("nhap gba: "));
+            let status = prompt("nhap status: ");
+
+            if (isUpdate) {
+                return {id, name, age, gba, status };
+            }
+
+            if (!validate()){
+                alert("ko hop le!");
+                return null;
+            }
+            
+            return {
+                id,
+                name,
+                age,
+                gba,
+                status,
+                taoat:students(),
+                upat: null,
+                xoat: null
+            }
+        }
+
+        
+
+    </script>
+</body>
+</html>
