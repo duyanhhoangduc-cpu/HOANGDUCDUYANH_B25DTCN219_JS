@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh Sách Sản Phẩm Chợ Tết</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+    }
+    .product-item {
+      padding: 8px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .delete-btn {
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 5px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    form {
+      margin-top: 20px;
+    }
+    input {
+      padding: 6px;
+      margin-right: 5px;
+    }
+    button {
+      padding: 6px 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Danh Sách Sản Phẩm Chợ Tết</h1>
+  <ul id="product-list"></ul>
+
+  <form id="product-form">
+    <input type="text" id="product-name" placeholder="Tên sản phẩm" required>
+    <input type="number" id="product-price" placeholder="Giá (VND)" required>
+    <button type="submit">Thêm Sản Phẩm</button>
+  </form>
+
+  <script>
+    const products = [
+      { id: 1, name: "Bánh Chưng", price: 150000 },
+      { id: 2, name: "Giò Lụa", price: 180000 },
+      { id: 3, name: "Cành Đào", price: 500000 },
+      { id: 4, name: "Mứt Tết", price: 120000 },
+      { id: 5, name: "Bao Lì Xì", price: 25000 },
+      { id: 6, name: "Dưa Hấu Tết", price: 80000 }
+    ];
+
+    const productList = document.getElementById("product-list");
+    const form = document.getElementById("product-form");
+    const nameInput = document.getElementById("product-name");
+    const priceInput = document.getElementById("product-price");
+
+    function renderProduct(product) {
+      const li = document.createElement("li");
+      li.classList.add("product-item");
+      li.setAttribute("data-id", product.id);
+
+      li.innerHTML = `
+        <span><strong>${product.name}</strong> - ${product.price.toLocaleString()} VND</span>
+        <button class="delete-btn">Xóa</button>
+      `;
+
+      productList.appendChild(li);
+    }
+
+    products.forEach(product => renderProduct(product));
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = nameInput.value.trim();
+      const price = parseFloat(priceInput.value);
+
+      if (!name || isNaN(price) || price <= 0) return;
+
+      const newProduct = {
+        id: products.length + 1,
+        name: name,
+        price: price
+      };
+
+      products.push(newProduct);
+      renderProduct(newProduct);
+
+      nameInput.value = "";
+      priceInput.value = "";
+    });
+
+    productList.addEventListener("click", function(e) {
+      if (e.target.classList.contains("delete-btn")) {
+        const li = e.target.closest("li");
+
+        const confirmDelete = confirm("Bạn có chắc muốn xóa sản phẩm này?");
+        if (confirmDelete) {
+          li.remove();
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing: border-box;
+        }
+
+        form {
+            margin:20px; 
+        }
+
+        label {
+            margin-right:5px;
+        }
+
+        .submit-btn {
+            margin-top: 10px;
+            padding:5px; 
+        }
+    </style>
+<body>
+    <form>
+        <h3 class="display:-none">input form</h3>
+        <label class="duyanh" for="fullname">Họ và tên</label>
+        <input type="text" id="fullname">
+        <br>
+        <input type="submit" value="submit" class="submit-btn">
+
+    </form>
+    <script>
+        //truy cập phần tử thông qua dom
+        console.log(document.getElementById("fullname"));
+        let inputElement = document.getElementById("fullname");// tương tự
+        console.log(inputElement); 
+        let labelElement = document.getElementsByClassName("duyanh");//lấy theo class
+        document.getElementsByTagName("a");//lấy theo tên thẻ
+        document.querySelector() // lấy theo bộ chọn (trong css vdu: .submit-btn)
+        
+        //lấy nội dung bên trong phần tử
+        let inputForm = document.getElementById("inputForm");
+        console.log(inputForm.innerHTML); //nội dung bên trong html
+        console.log(inputForm.textContent); //nội dung text bên trong phần tử ( vdu: in ra họ và tên (label) ); lấy toàn bộ text trong html
+        console.log(inputForm.innerText); //chỉ lấy text đc hiển thị trên giao diện
+
+        inputForm.innerHTML = "đây là nội dung html đc thêm vào từ js, nội dung này sẽ ghi đè toàn bộ innerahtml cũ"
+        inputForm.innerHTML += "đây là nội dung html đc thêm vào từ js"
+
+
+        //lấy thuộc tính bên trong phần tử
+        let inputForm = document.getElementById("inputForm");
+        inputForm.classList.add("bg-blue"); //thêm class vào ptu này
+        inputForm.classList.remove("bg-blue"); //xóa class vào ptu này
+        inputForm.classList.toggle("bg-blue") //chưa có thì thêm, có thì xóa
+        
+        
+        //tạo 1 ptu html trong js
+        let headerELement = document.createElement("h1");
+        let body = document.getElementsByTagName("body");
+        headerELement.innerText = "nội dung bên trong thẻ vừa tạo"; //thêm nội dung cho ptu vừa tạo
+        console.log(headerELement);
+        body[0].appendChild(headerELement); // thêm ptu vừa tạo vào cuối thẻ body
+               
+
+
+        
+
+        
+        
+        
+    </script>
+</body>
+</html>

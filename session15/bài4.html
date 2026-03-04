@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh Sách Sản Phẩm Chợ Tết</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 40px auto;
+    }
+    .product-item {
+      padding: 8px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-group button {
+      margin-left: 5px;
+      padding: 4px 8px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .delete-btn {
+      background: red;
+      color: white;
+    }
+    .edit-price-btn {
+      background: orange;
+      color: white;
+    }
+    form {
+      margin-top: 20px;
+    }
+    input {
+      padding: 6px;
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Danh Sách Sản Phẩm Chợ Tết</h1>
+  <ul id="product-list"></ul>
+
+  <form id="product-form">
+    <input type="text" id="product-name" placeholder="Tên sản phẩm" required>
+    <input type="number" id="product-price" placeholder="Giá (VND)" required>
+    <button type="submit">Thêm Sản Phẩm</button>
+  </form>
+
+  <script>
+    const products = [
+      { id: 1, name: "Bánh Chưng", price: 150000 },
+      { id: 2, name: "Giò Lụa", price: 180000 },
+      { id: 3, name: "Cành Đào", price: 500000 },
+      { id: 4, name: "Mứt Tết", price: 120000 },
+      { id: 5, name: "Bao Lì Xì", price: 25000 },
+      { id: 6, name: "Dưa Hấu Tết", price: 80000 }
+    ];
+
+    const productList = document.getElementById("product-list");
+    const form = document.getElementById("product-form");
+    const nameInput = document.getElementById("product-name");
+    const priceInput = document.getElementById("product-price");
+
+    function formatPrice(price) {
+      return price.toLocaleString() + " VND";
+    }
+
+    function renderProduct(product) {
+      const li = document.createElement("li");
+      li.classList.add("product-item");
+      li.setAttribute("data-id", product.id);
+
+      li.innerHTML = `
+        <span class="product-info">
+          <strong>${product.name}</strong> - 
+          <span class="price">${formatPrice(product.price)}</span>
+        </span>
+        <div class="btn-group">
+          <button class="edit-price-btn">Sửa giá</button>
+          <button class="delete-btn">Xóa</button>
+        </div>
+      `;
+
+      productList.appendChild(li);
+    }
+
+    products.forEach(product => renderProduct(product));
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = nameInput.value.trim();
+      const price = parseFloat(priceInput.value);
+
+      if (!name || isNaN(price) || price <= 0) return;
+
+      const newProduct = {
+        id: products.length + 1,
+        name: name,
+        price: price
+      };
+
+      products.push(newProduct);
+      renderProduct(newProduct);
+
+      nameInput.value = "";
+      priceInput.value = "";
+    });
+
+    productList.addEventListener("click", function(e) {
+
+      if (e.target.classList.contains("delete-btn")) {
+        const li = e.target.closest("li");
+        if (confirm("Bạn có chắc muốn xóa sản phẩm này?")) {
+          li.remove();
+        }
+      }
+
+      if (e.target.classList.contains("edit-price-btn")) {
+        const li = e.target.closest("li");
+        const priceSpan = li.querySelector(".price");
+
+        const newPrice = prompt("Nhập giá mới (VND):");
+
+        if (newPrice !== null) {
+          const parsedPrice = parseFloat(newPrice);
+          if (!isNaN(parsedPrice) && parsedPrice > 0) {
+            priceSpan.textContent = formatPrice(parsedPrice);
+          }
+        }
+      }
+
+    });
+  </script>
+
+</body>
+</html>
