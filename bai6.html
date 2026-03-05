@@ -55,6 +55,12 @@ width:100%;
 margin:10px 0;
 }
 
+.sort-btn{
+margin:5px 5px 10px 0;
+padding:6px 10px;
+cursor:pointer;
+}
+
 </style>
 </head>
 
@@ -63,6 +69,9 @@ margin:10px 0;
 <h1>Danh Sách Sản Phẩm Chợ Tết</h1>
 
 <input type="text" id="search-input" placeholder="Tìm sản phẩm...">
+
+<button id="sort-asc" class="sort-btn">Sắp xếp theo giá tăng dần</button>
+<button id="sort-desc" class="sort-btn">Sắp xếp theo giá giảm dần</button>
 
 <ul id="product-list"></ul>
 
@@ -79,19 +88,12 @@ margin:10px 0;
 <script>
 
 const products = [
-
 { id:1, name:"Bánh Chưng", price:150000 },
-
 { id:2, name:"Giò Lụa", price:180000 },
-
 { id:3, name:"Cành Đào", price:500000 },
-
 { id:4, name:"Mứt Tết", price:120000 },
-
 { id:5, name:"Bao Lì Xì", price:25000 },
-
 { id:6, name:"Dưa Hấu Tết", price:80000 }
-
 ];
 
 const productList = document.getElementById("product-list");
@@ -100,11 +102,18 @@ const nameInput = document.getElementById("product-name");
 const priceInput = document.getElementById("product-price");
 const searchInput = document.getElementById("search-input");
 
+const sortAscBtn = document.getElementById("sort-asc");
+const sortDescBtn = document.getElementById("sort-desc");
+
 function formatPrice(price){
 return price.toLocaleString() + " VND";
 }
 
-function renderProduct(product){
+function renderProducts(){
+
+productList.innerHTML="";
+
+products.forEach(product => {
 
 const li = document.createElement("li");
 
@@ -126,9 +135,11 @@ li.innerHTML = `
 
 productList.appendChild(li);
 
+});
+
 }
 
-products.forEach(product => renderProduct(product));
+renderProducts();
 
 form.addEventListener("submit",function(e){
 
@@ -149,7 +160,7 @@ price: price
 
 products.push(newProduct);
 
-renderProduct(newProduct);
+renderProducts();
 
 nameInput.value="";
 priceInput.value="";
@@ -158,21 +169,25 @@ priceInput.value="";
 
 productList.addEventListener("click",function(e){
 
+const li = e.target.closest("li");
+const id = parseInt(li.dataset.id);
+const product = products.find(p => p.id === id);
+
 if(e.target.classList.contains("delete-btn")){
 
-const li = e.target.closest("li");
-
 if(confirm("Bạn có chắc muốn xóa sản phẩm này?")){
-li.remove();
+
+const index = products.findIndex(p => p.id === id);
+
+products.splice(index,1);
+
+renderProducts();
+
 }
 
 }
 
 if(e.target.classList.contains("edit-price-btn")){
-
-const li = e.target.closest("li");
-
-const priceSpan = li.querySelector(".price");
 
 const newPrice = prompt("Nhập giá mới (VND):");
 
@@ -182,7 +197,9 @@ const parsedPrice = parseFloat(newPrice);
 
 if(!isNaN(parsedPrice) && parsedPrice>0){
 
-priceSpan.textContent = formatPrice(parsedPrice);
+product.price = parsedPrice;
+
+renderProducts();
 
 }
 
@@ -205,16 +222,28 @@ const productName = item.querySelector(".product-info")
 .toLowerCase();
 
 if(productName.includes(keyword)){
-
 item.style.display="";
-
 }else{
-
 item.style.display="none";
-
 }
 
 });
+
+});
+
+sortAscBtn.addEventListener("click",function(){
+
+products.sort((a,b)=>a.price-b.price);
+
+renderProducts();
+
+});
+
+sortDescBtn.addEventListener("click",function(){
+
+products.sort((a,b)=>b.price-a.price);
+
+renderProducts();
 
 });
 
