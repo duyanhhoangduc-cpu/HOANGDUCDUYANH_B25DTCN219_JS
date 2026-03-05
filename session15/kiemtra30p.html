@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing: border-box;
+    }
+
+    .all {
+        margin:20px;
+        padding:20px;
+    }
+    
+
+</style>
+<body>
+    <form>
+        <div class="all">
+        <h1 id="input"><strong>Đăng Nhập</strong></h1>
+        <label class="duyanh" for="email">Email: </label>
+        <input type="text" id="email">
+        <br>
+        <label class="duyanh2" for="matkhau">Mật Khẩu: </label>
+        <input type="text" id="matkhau">
+        <br>
+        <button id="chon" onclick="bamvao()">Đăng nhập</button>
+        </div>
+    </form>
+    <script>
+        let input = document.getElementById("input");
+        console.log(input.innerText);
+        let email = document.getElementById("email");
+        console.log(email.innerText);
+        let password = document.getElementById("matkhau");
+        console.log(password.innerText);
+        
+        function bamvao(){
+            let bamvao = document.getElementById("chon");
+            bamvao.style.backgroundColor = "lightblue";
+        }
+        
+       
+        
+        
+    </script>
+</body>
+</html>

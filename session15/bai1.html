@@ -33,7 +33,7 @@
     const productList = document.getElementById("product-list");
 
     products.forEach(product => {
-      const li = document.createElement("li");
+      return const li = document.createElement("li");
       li.classList.add("product");
       li.innerHTML = `<strong>${product.name}</strong> - ${product.price.toLocaleString()} VND`;
       productList.appendChild(li);
