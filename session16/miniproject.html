@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Quản Lý Nhân Viên</title>
+
+<style>
+body{
+font-family: Arial;
+margin:40px;
+}
+
+input{
+display:block;
+margin-bottom:10px;
+padding:6px;
+width:250px;
+}
+
+button{
+padding:6px 10px;
+margin-right:5px;
+}
+
+table{
+margin-top:20px;
+border-collapse: collapse;
+width:100%;
+}
+
+table,th,td{
+border:1px solid #ccc;
+}
+
+th,td{
+padding:8px;
+text-align:center;
+}
+</style>
+
+</head>
+<body>
+
+<h2 id="title">Thêm Nhân Viên</h2>
+
+<input id="name" placeholder="Tên nhân viên">
+<input id="email" placeholder="Email">
+<input id="position" placeholder="Chức vụ">
+<input id="salary" placeholder="Lương">
+<input id="dob" type="date">
+
+<button onclick="submitEmployee()" id="btnSubmit">Thêm nhân viên</button> <button onclick="cancelEdit()" id="btnCancel" style="display:none">Hủy</button>
+
+<h3>Danh sách nhân viên</h3>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Tên</th>
+<th>Email</th>
+<th>Chức vụ</th>
+<th>Lương</th>
+<th>Ngày sinh</th>
+<th>Hành động</th>
+</tr>
+</thead>
+
+<tbody id="tableBody"></tbody>
+</table>
+
+<h3 id="total">Tổng nhân viên: 0</h3>
+
+<script>
+
+let employees = []
+let id = 1
+let editIndex = -1
+
+
+function submitEmployee(){
+
+let name = document.getElementById("name").value
+let email = document.getElementById("email").value
+let position = document.getElementById("position").value
+let salary = document.getElementById("salary").value
+let dob = document.getElementById("dob").value
+
+if(name=="" || email=="" || position=="" || salary=="" || dob==""){
+alert("Không được để trống")
+return
+}
+
+if(email.indexOf("@")==-1){
+alert("Email không hợp lệ")
+return
+}
+
+if(editIndex == -1){
+
+let emp = {
+id:id++,
+name:name,
+email:email,
+position:position,
+salary:salary,
+dob:dob
+}
+
+employees.push(emp)
+
+}else{
+
+employees[editIndex].name = name
+employees[editIndex].email = email
+employees[editIndex].position = position
+employees[editIndex].salary = salary
+employees[editIndex].dob = dob
+
+editIndex = -1
+
+document.getElementById("title").innerText="Thêm Nhân Viên"
+document.getElementById("btnSubmit").innerText="Thêm nhân viên"
+document.getElementById("btnCancel").style.display="none"
+
+}
+
+render()
+clearForm()
+
+}
+
+
+function render(){
+
+let html = ""
+
+for(let i=0;i<employees.length;i++){
+
+html += `
+<tr>
+<td>${employees[i].id}</td>
+<td>${employees[i].name}</td>
+<td>${employees[i].email}</td>
+<td>${employees[i].position}</td>
+<td>${employees[i].salary}</td>
+<td>${employees[i].dob}</td>
+
+<td>
+<button onclick="editEmployee(${i})">Sửa</button>
+<button onclick="deleteEmployee(${i})">Xóa</button>
+</td>
+
+</tr>
+`
+
+}
+
+document.getElementById("tableBody").innerHTML = html
+
+document.getElementById("total").innerText =
+"Tổng nhân viên: " + employees.length
+
+}
+
+
+function editEmployee(index){
+
+let emp = employees[index]
+
+document.getElementById("name").value = emp.name
+document.getElementById("email").value = emp.email
+document.getElementById("position").value = emp.position
+document.getElementById("salary").value = emp.salary
+document.getElementById("dob").value = emp.dob
+
+editIndex = index
+
+document.getElementById("title").innerText="Chỉnh sửa nhân viên"
+document.getElementById("btnSubmit").innerText="Cập nhật"
+document.getElementById("btnCancel").style.display="inline"
+
+window.scrollTo(0,0)
+
+}
+
+
+function deleteEmployee(index){
+
+let check = confirm("Bạn có chắc muốn xóa nhân viên này?")
+
+if(check){
+employees.splice(index,1)
+render()
+}
+
+}
+
+
+function cancelEdit(){
+
+editIndex = -1
+
+clearForm()
+
+document.getElementById("title").innerText="Thêm Nhân Viên"
+document.getElementById("btnSubmit").innerText="Thêm nhân viên"
+document.getElementById("btnCancel").style.display="none"
+
+}
+
+
+function clearForm(){
+
+document.getElementById("name").value=""
+document.getElementById("email").value=""
+document.getElementById("position").value=""
+document.getElementById("salary").value=""
+document.getElementById("dob").value=""
+
+}
+
+</script>
+
+</body>
+</html>
