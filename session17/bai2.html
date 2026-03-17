@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Todo Tết</title>
+
+<style>
+    body {
+        font-family: Arial;
+        background: #f5f5f5;
+    }
+
+    h1 {
+        background: #d62828;
+        color: white;
+        text-align: center;
+        padding: 20px;
+    }
+
+    #list {
+        padding: 10px;
+    }
+
+    .todo {
+        background: #eee8d5;
+        margin: 10px 0;
+        padding: 15px;
+        border-left: 5px solid orange;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .done {
+        background: #cde0c9;
+        border-left: 5px solid green;
+        text-decoration: line-through;
+    }
+</style>
+
+</head>
+<body>
+
+<h1>Công việc chuẩn bị Tết</h1>
+
+<div id="list"></div>
+
+<script>
+const initialTodos = [
+    { id: 1, task: "Mua bánh chưng", done: false },
+    { id: 2, task: "Dọn nhà đón Tết", done: false },
+    { id: 3, task: "Gói bánh chưng", done: false },
+    { id: 4, task: "Trang trí nhà cửa bằng hoa mai, hoa đào", done: false },
+    { id: 5, task: "Mua phong bao lì xì", done: false },
+    { id: 6, task: "Chuẩn bị mâm ngũ quả", done: false },
+];
+
+
+let todos;
+
+if (localStorage.getItem("myTodos")) {
+    todos = JSON.parse(localStorage.getItem("myTodos"));
+} else {
+    todos = initialTodos;
+    localStorage.setItem("myTodos", JSON.stringify(todos));
+}
+
+
+const list = document.getElementById("list");
+
+function renderTodos() {
+    list.innerHTML = "";
+
+    todos.forEach(todo => {
+        const div = document.createElement("div");
+        div.className = "todo";
+
+        if (todo.done) {
+            div.classList.add("done");
+        }
+
+        div.innerHTML = `
+            <span>${todo.done ? "✔️" : "⭕"}</span>
+            <span>${todo.task}</span>
+        `;
+
+       
+        div.onclick = () => {
+            todo.done = !todo.done;
+
+            // lưu lại localStorage
+            localStorage.setItem("myTodos", JSON.stringify(todos));
+
+            
+            renderTodos();
+        };
+
+        list.appendChild(div);
+    });
+}
+
+renderTodos();
+</script>
+
+</body>
+</html>

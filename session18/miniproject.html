@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #e3f2fd;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header Styles */
+.header {
+  background: #1976d2;
+  padding: 40px 30px;
+  color: white;
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.subtitle {
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+/* Form Section Styles */
+.form-section {
+  padding: 30px;
+  background: #e3f2fd;
+  border-bottom: 2px solid #90caf9;
+}
+
+.form-section h2 {
+  color: #1565c0;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+#productForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+}
+
+.required {
+  color: #e53935;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 12px 16px;
+  border: 2px solid #90caf9;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  outline: none;
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #1976d2;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.btn-submit,
+.btn-cancel,
+.btn-clear {
+  padding: 12px 32px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-submit {
+  background: #42a5f5;
+  color: white;
+  flex: 1;
+}
+
+.btn-submit:hover {
+  background: #2196f3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(66, 165, 245, 0.4);
+}
+
+.btn-cancel {
+  background: #bdbdbd;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background: #9e9e9e;
+  transform: translateY(-2px);
+}
+
+.btn-clear {
+  background: #ef5350;
+  color: white;
+}
+
+.btn-clear:hover {
+  background: #e53935;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 83, 80, 0.4);
+}
+
+/* Search Section */
+.search-section {
+  padding: 20px 30px;
+  background: #f5f5f5;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.search-group {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 15px;
+}
+
+.search-group input,
+.search-group select {
+  padding: 12px 16px;
+  border: 2px solid #90caf9;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.search-group input:focus,
+.search-group select:focus {
+  border-color: #1976d2;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+}
+
+/* List Section Styles */
+.list-section {
+  padding: 30px;
+}
+
+.list-section h2 {
+  color: #1565c0;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.table-container {
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+thead {
+  background: #1976d2;
+  color: white;
+}
+
+thead th {
+  padding: 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+tbody tr {
+  border-bottom: 1px solid #e0e0e0;
+  transition: all 0.3s ease;
+  animation: rowSlideIn 0.3s ease-out;
+}
+
+@keyframes rowSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+tbody tr:hover {
+  background: #e3f2fd;
+}
+
+tbody td {
+  padding: 16px;
+  color: #333;
+  font-size: 14px;
+}
+
+.price {
+  color: #4caf50;
+  font-weight: 600;
+}
+
+.quantity {
+  text-align: center;
+  font-weight: 600;
+}
+
+.low-stock {
+  color: #ff5722;
+}
+
+.description {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-edit,
+.btn-delete {
+  padding: 6px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-edit {
+  background: #ffa726;
+  color: white;
+}
+
+.btn-edit:hover {
+  background: #fb8c00;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 167, 38, 0.3);
+}
+
+.btn-delete {
+  background: #ef5350;
+  color: white;
+}
+
+.btn-delete:hover {
+  background: #e53935;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(239, 83, 80, 0.3);
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+  display: none;
+}
+
+.empty-state.show {
+  display: block;
+}
+
+.empty-state-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+}
+
+.empty-state-text {
+  font-size: 18px;
+}
+
+/* Footer Styles */
+.footer {
+  background: #e3f2fd;
+  padding: 25px 30px;
+  border-top: 2px solid #90caf9;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.stat-item {
+  font-size: 16px;
+  color: #666;
+}
+
+.stat-item strong {
+  color: #1976d2;
+  font-size: 20px;
+  font-weight: bold;
+  display: block;
+  margin-top: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .search-group {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    border-radius: 0;
+  }
+
+  .header h1 {
+    font-size: 28px;
+  }
+
+  .form-section,
+  .list-section {
+    padding: 20px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .btn-submit,
+  .btn-cancel,
+  .btn-clear {
+    width: 100%;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  thead th,
+  tbody td {
+    padding: 10px 8px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .btn-edit,
+  .btn-delete {
+    width: 100%;
+  }
+
+  .stats {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  thead th:nth-child(1),
+  tbody td:nth-child(1),
+  thead th:nth-child(6),
+  tbody td:nth-child(6) {
+    display: none;
+  }
+}
+</style>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản Lý Sản Phẩm</title>
+    <link rel="stylesheet" href="product-management.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <header class="header">
+        <h1>🛍️ Quản Lý Sản Phẩm</h1>
+        <p class="subtitle">Hệ thống quản lý với LocalStorage</p>
+      </header>
+
+      <!-- Form Section -->
+      <section class="form-section">
+        <h2 id="formTitle">Thêm Sản Phẩm Mới</h2>
+        <form id="productForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="productName"
+                >Tên Sản Phẩm <span class="required">*</span></label
+              >
+              <input
+                type="text"
+                id="productName"
+                placeholder="Nhập tên sản phẩm..."
+                autocomplete="off"
+                required=""
+              />
+            </div>
+            <div class="form-group">
+              <label for="productCategory"
+                >Danh Mục <span class="required">*</span></label
+              >
+              <select id="productCategory" required="">
+                <option value="">-- Chọn danh mục --</option>
+                <option value="Điện tử">Điện tử</option>
+                <option value="Thời trang">Thời trang</option>
+                <option value="Thực phẩm">Thực phẩm</option>
+                <option value="Đồ gia dụng">Đồ gia dụng</option>
+                <option value="Sách">Sách</option>
+                <option value="Khác">Khác</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="productPrice"
+                >Giá (VNĐ) <span class="required">*</span></label
+              >
+              <input
+                type="number"
+                id="productPrice"
+                placeholder="0"
+                min="0"
+                step="1000"
+                required=""
+              />
+            </div>
+            <div class="form-group">
+              <label for="productQuantity"
+                >Số Lượng <span class="required">*</span></label
+              >
+              <input
+                type="number"
+                id="productQuantity"
+                placeholder="0"
+                min="0"
+                required=""
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="productDescription">Mô Tả</label>
+            <textarea
+              id="productDescription"
+              placeholder="Nhập mô tả sản phẩm..."
+              rows="3"
+            ></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-submit" id="submitBtn">
+              ➕ Thêm Sản Phẩm
+            </button>
+            <button
+              type="button"
+              class="btn-cancel"
+              id="cancelBtn"
+              style="display: none"
+            >
+              ❌ Hủy
+            </button>
+            <button type="button" class="btn-clear" id="clearAllBtn">
+              🗑️ Xóa Tất Cả
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Search & Filter Section -->
+      <section class="search-section">
+        <div class="search-group">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="🔍 Tìm kiếm theo tên sản phẩm..."
+            autocomplete="off"
+          />
+          <select id="filterCategory">
+            <option value="">Tất cả danh mục</option>
+            <option value="Điện tử">Điện tử</option>
+            <option value="Thời trang">Thời trang</option>
+            <option value="Thực phẩm">Thực phẩm</option>
+            <option value="Đồ gia dụng">Đồ gia dụng</option>
+            <option value="Sách">Sách</option>
+            <option value="Khác">Khác</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Product List Section -->
+      <section class="list-section">
+        <h2>Danh Sách Sản Phẩm</h2>
+        <div class="table-container">
+          <table id="productTable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Tên Sản Phẩm</th>
+                <th>Danh Mục</th>
+                <th>Giá</th>
+                <th>Số Lượng</th>
+                <th>Mô Tả</th>
+                <th>Thao Tác</th>
+              </tr>
+            </thead>
+            <tbody id="productTableBody">
+              <tr>
+                <td>1</td>
+                <td><strong>Bánh Khảo</strong></td>
+                <td>Thực phẩm</td>
+                <td class="price">200.000&nbsp;₫</td>
+                <td class="quantity">19</td>
+                <td class="description">Bánh này là bánh khảo</td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="btn-edit" onclick="editProduct(1)">
+                      ✏️ Sửa
+                    </button>
+                    <button class="btn-delete" onclick="deleteProduct(1)">
+                      🗑️ Xóa
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="empty-state show" id="emptyState">
+            <div class="empty-state-icon">📦</div>
+            <div class="empty-state-text">
+              Chưa có sản phẩm nào. Hãy thêm sản phẩm mới!
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="stats">
+          <span class="stat-item">
+            Tổng sản phẩm: <strong id="totalProducts">0</strong>
+          </span>
+          <span class="stat-item">
+            Tổng giá trị: <strong id="totalValue">0&nbsp;₫</strong>
+          </span>
+          <span class="stat-item">
+            Tổng số lượng: <strong id="totalQuantity">0</strong>
+          </span>
+        </div>
+      </footer>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
+<body>
+    <script>
+        // ===== DATA =====
+let products = [];
+let id = 1;
+let editingId = null;
+const KEY = "products_data";
+
+// ===== LOAD =====
+function loadData() {
+  let data = localStorage.getItem(KEY);
+  if (data) {
+    let obj = JSON.parse(data);
+    products = obj.products || [];
+    id = obj.id || 1;
+  }
+}
+
+// ===== SAVE =====
+function saveData() {
+  localStorage.setItem(KEY, JSON.stringify({ products, id }));
+}
+
+// ===== ADD =====
+function addProduct(product) {
+  products.push(product);
+  saveData();
+  render(products);
+}
+
+// ===== UPDATE =====
+function updateProduct(product) {
+  let index = products.findIndex(p => p.id === product.id);
+
+  if (index !== -1) {
+    products[index] = product;
+  }
+
+  saveData();
+  render(products);
+}
+
+// ===== DELETE =====
+function deleteProduct(id) {
+  if (!confirm("Bạn có chắc muốn xóa?")) return;
+
+  products = products.filter(p => p.id !== id);
+
+  saveData();
+  render(products);
+}
+
+// ===== EDIT =====
+function editProduct(id) {
+  let product = products.find(p => p.id === id);
+  if (!product) return;
+
+  productName.value = product.name;
+  productCategory.value = product.category;
+  productPrice.value = product.price;
+  productQuantity.value = product.quantity;
+  productDescription.value = product.description;
+
+  editingId = id;
+}
+
+// ===== RENDER =====
+function render(list) {
+  productTableBody.innerHTML = "";
+
+  list.forEach(p => {
+    productTableBody.innerHTML += `
+      <tr>
+        <td>${p.id}</td>
+        <td>${p.name}</td>
+        <td>${p.category}</td>
+        <td>${p.price}</td>
+        <td>${p.quantity}</td>
+        <td>${p.description || ""}</td>
+        <td>
+          <button onclick="editProduct(${p.id})">Sửa</button>
+          <button onclick="deleteProduct(${p.id})">Xóa</button>
+        </td>
+      </tr>
+    `;
+  });
+}
+
+// ===== SEARCH + FILTER =====
+function searchAndFilter() {
+  let keyword = searchInput.value.toLowerCase().trim();
+  let category = filterCategory.value;
+
+  let result = products.filter(p => {
+    let matchName =
+      p.name.toLowerCase().includes(keyword) ||
+      (p.description && p.description.toLowerCase().includes(keyword));
+
+    let matchCategory =
+      category === "" || p.category === category;
+
+    return matchName && matchCategory;
+  });
+
+  render(result);
+}
+
+// ===== SUBMIT =====
+productForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  let product = {
+    id: editingId ? editingId : id++,
+    name: productName.value.trim(),
+    category: productCategory.value,
+    price: Number(productPrice.value),
+    quantity: Number(productQuantity.value),
+    description: productDescription.value.trim()
+  };
+
+  if (!product.name || !product.category) {
+    alert("Nhập thiếu thông tin!");
+    return;
+  }
+
+  if (editingId) {
+    updateProduct(product);
+    editingId = null;
+  } else {
+    addProduct(product);
+  }
+
+  productForm.reset();
+});
+
+// ===== EVENT =====
+searchInput.addEventListener("input", searchAndFilter);
+filterCategory.addEventListener("change", searchAndFilter);
+
+// ===== INIT =====
+loadData();
+render(products);
+    </script>
+</body>
+</html>

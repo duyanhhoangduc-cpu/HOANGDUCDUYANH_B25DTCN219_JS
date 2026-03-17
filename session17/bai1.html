@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo Tết</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f5f5f5;
+        }
+        h1 {
+            background: red;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .todo {
+            background: #e8dfc8;
+            margin: 10px;
+            padding: 15px;
+            border-left: 5px solid orange;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Chuẩn bị Tết Nguyên Đán</h1>
+
+<div id="list"></div>
+
+<script>
+    const defaultTodos = [
+        { id: 1, task: "Mua bánh chưng", done: false },
+        { id: 2, task: "Dọn nhà đón Tết", done: false },
+        { id: 3, task: "Gói bánh chưng", done: false },
+        { id: 4, task: "Trang trí nhà cửa", done: false }
+    ];
+
+   
+    let todos;
+
+    if (localStorage.getItem("myTodos") === null) {
+   
+        localStorage.setItem("myTodos", JSON.stringify(defaultTodos));
+        todos = defaultTodos;
+    } else {
+    
+        todos = JSON.parse(localStorage.getItem("myTodos"));
+    }
+
+
+    const list = document.getElementById("list");
+
+    function renderTodos() {
+        list.innerHTML = "";
+
+        todos.forEach(todo => {
+            list.innerHTML += `
+                <div class="todo">
+                    <span>🌸 ${todo.task}</span>
+                    <span>${todo.done ? "Đã làm" : "Chưa làm"}</span>
+                </div>
+            `;
+        });
+    }
+
+    renderTodos();
+</script>
+
+</body>
+</html>
