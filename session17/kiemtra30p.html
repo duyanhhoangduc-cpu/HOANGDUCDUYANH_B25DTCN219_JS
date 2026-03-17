@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý sản phẩm</title>
+    <link rel="stylesheet" href="./style.css" />
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    :root {
+        --primary-color: #2563eb;
+        --primary-hover: #1d4ed8;
+        --secondary-color: #64748b;
+        --success-color: #10b981;
+        --danger-color: #ef4444;
+        --danger-hover: #dc2626;
+        --warning-color: #f59e0b;
+        --warning-hover: #d97706;
+        --bg-color: #f8fafc;
+        --card-bg: #ffffff;
+        --border-color: #e2e8f0;
+        --text-primary: #1e293b;
+        --text-secondary: #64748b;
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+            0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+            0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        --radius: 8px;
+        --radius-lg: 12px;
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+            Ubuntu, Cantarell, sans-serif;
+        min-height: 100vh;
+        padding: 20px;
+        color: var(--text-primary);
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+        background: var(--card-bg);
+        padding: 24px 32px;
+        border-radius: var(--radius-lg);
+        margin-bottom: 24px;
+        text-align: center;
+        border: 1px solid var(--border-color);
+    }
+
+    .header h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        letter-spacing: -0.02em;
+    }
+
+    /* Form Section */
+    .form-section {
+        background: var(--card-bg);
+        padding: 32px;
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--border-color);
+        margin-bottom: 24px;
+    }
+
+    .product-form {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        align-items: end;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .form-group label {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: var(--text-primary);
+    }
+
+    .form-group input {
+        padding: 12px 16px;
+        border: 2px solid var(--border-color);
+        border-radius: var(--radius);
+        font-size: 1rem;
+        transition: all 0.2s ease;
+        font-family: inherit;
+    }
+
+    .form-group input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .form-group input::placeholder {
+        color: var(--text-secondary);
+    }
+
+    .btn-add {
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 0 16px;
+        border-radius: var(--radius);
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: var(--shadow-md);
+        height: 49px;
+    }
+
+    .btn-add:hover {
+        background: var(--primary-hover);
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .btn-add:active {
+        transform: translateY(0);
+    }
+
+    /* Table Section */
+    .table-section {
+        background: var(--card-bg);
+        padding: 24px;
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--border-color);
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+    }
+
+    .product-table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 600px;
+    }
+
+    .product-table thead {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+    }
+
+    .product-table th {
+        padding: 16px;
+        text-align: left;
+        font-weight: 600;
+        font-size: 0.95rem;
+        letter-spacing: 0.02em;
+    }
+
+    .product-table th:first-child {
+        border-top-left-radius: var(--radius);
+    }
+
+    .product-table th:last-child {
+        border-top-right-radius: var(--radius);
+    }
+
+    .product-table tbody tr {
+        border-bottom: 1px solid var(--border-color);
+        transition: background-color 0.2s ease;
+    }
+
+    .product-table tbody tr:hover {
+        background-color: #f8fafc;
+    }
+
+    .product-table tbody tr:last-child {
+        border-bottom: none;
+    }
+
+    .product-table td {
+        padding: 16px;
+        font-size: 0.95rem;
+        color: var(--text-primary);
+    }
+
+    .product-table td:nth-child(1) {
+        font-weight: 600;
+        color: var(--text-secondary);
+        text-align: center;
+        width: 80px;
+    }
+
+    .product-table td:nth-child(4) {
+        font-weight: 600;
+        color: var(--success-color);
+    }
+
+    .product-table td:nth-child(4)::after {
+        content: " đ";
+        margin-left: 2px;
+    }
+
+    /* Action Buttons */
+    .action-buttons {
+        display: flex;
+        gap: 8px;
+    }
+
+    .btn-edit,
+    .btn-delete {
+        padding: 8px 16px;
+        border: none;
+        border-radius: var(--radius);
+        font-size: 0.875rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .btn-edit {
+        background: var(--warning-color);
+        color: white;
+    }
+
+    .btn-edit:hover {
+        background: var(--warning-hover);
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
+    }
+
+    .btn-delete {
+        background: var(--danger-color);
+        color: white;
+    }
+
+    .btn-delete:hover {
+        background: var(--danger-hover);
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
+    }
+
+    .btn-edit:active,
+    .btn-delete:active {
+        transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .header h1 {
+            font-size: 1.5rem;
+        }
+
+        .product-form {
+            grid-template-columns: 1fr;
+        }
+
+        .form-section {
+            padding: 24px;
+        }
+
+        .table-section {
+            padding: 16px;
+        }
+
+        .action-buttons {
+            flex-direction: column;
+        }
+
+        .btn-edit,
+        .btn-delete {
+            width: 100%;
+        }
+    }
+
+    /* Empty state */
+    .empty-state {
+        text-align: center;
+        padding: 48px 24px;
+        color: var(--text-secondary);
+    }
+
+    .empty-state p {
+        font-size: 1.1rem;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>Quản lý sản phẩm</h1>
+        </header>
+
+        <!-- Form thêm sản phẩm -->
+        <section class="form-section">
+            <form id="product-form" class="product-form">
+                <div class="form-group">
+                    <label for="product-code">Mã sản phẩm:</label>
+                    <input type="text" id="product-code" name="code" placeholder="Nhập mã sản phẩm" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="product-name">Tên sản phẩm:</label>
+                    <input type="text" id="product-name" name="name" placeholder="Nhập tên sản phẩm" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="product-price">Giá sản phẩm:</label>
+                    <input type="number" id="product-price" name="price" placeholder="Nhập giá sản phẩm" min="0"
+                        step="1000" required />
+                </div>
+
+                <button type="submit" class="btn-add">Thêm</button>
+            </form>
+        </section>
+
+        <!-- Bảng danh sách sản phẩm -->
+        <section class="table-section">
+            <div class="table-wrapper">
+                <table class="product-table">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Mã</th>
+                            <th>Tên</th>
+                            <th>Giá</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="product-tbody">
+                        <tr>
+                            <td>1</td>
+                            <td>SP001</td>
+                            <td>Laptop Dell XPS 15</td>
+                            <td>25000000</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-edit">Sửa</button>
+                                    <button class="btn-delete">Xóa</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>SP002</td>
+                            <td>iPhone 15 Pro Max</td>
+                            <td>32900000</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-edit">Sửa</button>
+                                    <button class="btn-delete">Xóa</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>SP003</td>
+                            <td>Samsung Galaxy S24 Ultra</td>
+                            <td>28900000</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-edit">Sửa</button>
+                                    <button class="btn-delete">Xóa</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>SP004</td>
+                            <td>Tai nghe AirPods Pro 2</td>
+                            <td>5990000</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-edit">Sửa</button>
+                                    <button class="btn-delete">Xóa</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>SP005</td>
+                            <td>Bàn phím cơ Logitech MX Keys</td>
+                            <td>2990000</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-edit">Sửa</button>
+                                    <button class="btn-delete">Xóa</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>SP006</td>
+                            <td>Chuột không dây Logitech MX Master 3</td>
+                            <td>2490000</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-edit">Sửa</button>
+                                    <button class="btn-delete">Xóa</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>SP007</td>
+                            <td>Màn hình Dell UltraSharp U2720Q</td>
+                            <td>12900000</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-edit">Sửa</button>
+                                    <button class="btn-delete">Xóa</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>SP008</td>
+                            <td>MacBook Pro 14 inch M3</td>
+                            <td>45900000</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-edit">Sửa</button>
+                                    <button class="btn-delete">Xóa</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>SP009</td>
+                            <td>iPad Pro 12.9 inch M2</td>
+                            <td>28900000</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-edit">Sửa</button>
+                                    <button class="btn-delete">Xóa</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>SP010</td>
+                            <td>Loa Bluetooth JBL Flip 6</td>
+                            <td>3990000</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-edit">Sửa</button>
+                                    <button class="btn-delete">Xóa</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <script src="./script.js">
+        let products = [];
+        let currentPage = 1;
+        let perPage = 5;
+
+        let form = document.getElementById("product-form");
+        let codeInput = document.getElementById("product-code");
+        let nameInput = document.getElementById("product-name");
+        let priceInput = document.getElementById("product-price");
+        let tableBody = document.getElementById("product-list");
+        let pagination = document.getElementById("pagination");
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            addProduct();
+        });
+
+        function addProduct() {
+            let code = codeInput.value.trim();
+            let name = nameInput.value.trim();
+            let price = +priceInput.value;
+
+            if (!code || !name || !priceInput.value) {
+                alert("Không được để trống dữ liệu!");
+                return;
+            }
+
+            if (isNaN(price) || price <= 0) {
+                alert("Giá phải là số lớn hơn 0!");
+                return;
+            }
+            let duplicate = products.some(p => p.code === code);
+            if (duplicate) {
+                alert("Mã sản phẩm đã tồn tại!");
+                return;
+            }
+
+            products.push({
+                code,
+                name,
+                price
+            });
+
+            alert("Thêm sản phẩm thành công!");
+
+            form.reset();
+
+        }
+
+    </script>
+</body>
+
+</html>
