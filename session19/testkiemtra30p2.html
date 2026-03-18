@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý danh bạ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --secondary-color: #64748b;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --danger-hover: #dc2626;
+            --warning-color: #f59e0b;
+            --warning-hover: #d97706;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --radius: 8px;
+            --radius-lg: 12px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--text-primary);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .form-section {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 24px;
+        }
+
+        .contact-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            align-items: end;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .btn-add {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-add:hover { background: var(--primary-hover); }
+
+        .table-section {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            overflow-x: auto;
+        }
+
+        .contact-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .contact-table th {
+            background: #f1f5f9;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .contact-table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .btn-edit { background: var(--warning-color); color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+        .btn-delete { background: var(--danger-color); color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+        
+       
+        .empty-state {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Quản lý danh bạ</h1>
+        </header>
+
+        <section class="form-section">
+            <form id="contact-form" class="contact-form">
+                <div class="form-group">
+                    <label>Họ tên:</label>
+                    <input type="text" id="contact-name" placeholder="Nhập họ tên" required />
+                </div>
+                <div class="form-group">
+                    <label>Số điện thoại:</label>
+                    <input type="tel" id="contact-phone" placeholder="Nhập số điện thoại" required />
+                </div>
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" id="contact-email" placeholder="Nhập email" required />
+                </div>
+                <button type="submit" id="submit-btn" class="btn-add">Thêm liên hệ</button>
+            </form>
+        </section>
+
+        <section class="table-section">
+            <table class="contact-table">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Họ tên</th>
+                        <th>Số điện thoại</th>
+                        <th>Email</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody id="contact-tbody">
+                    </tbody>
+            </table>
+        </section>
+    </div>
+
+    <script>
+       
+        let contacts = JSON.parse(localStorage.getItem("myContacts")) || [];
+        let editId = null;
+
+        const contactForm = document.getElementById("contact-form");
+        const nameInput = document.getElementById("contact-name");
+        const phoneInput = document.getElementById("contact-phone");
+        const emailInput = document.getElementById("contact-email");
+        const tbody = document.getElementById("contact-tbody");
+        const submitBtn = document.getElementById("submit-btn");
+
+     
+        function renderContacts() {
+            tbody.innerHTML = "";
+            
+            if (contacts.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="empty-state">Danh sách trống</td></tr>`;
+            } else {
+                contacts.forEach((item, index) => {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${item.name}</td>
+                        <td>${item.phone}</td>
+                        <td>${item.email}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn-edit" onclick="prepareEdit('${item.phone}')">Sửa</button>
+                                <button class="btn-delete" onclick="deleteContact('${item.phone}')">Xóa</button>
+                            </div>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }
+            localStorage.setItem("myContacts", JSON.stringify(contacts));
+        }
+
+      
+        function validate(name, phone, isEditing) {
+            if (name.trim().length < 2) {
+                alert("Họ tên quá ngắn!");
+                return false;
+            }
+            if (!isEditing) {
+                const isExisted = contacts.some(c => c.phone === phone);
+                if (isExisted) {
+                    alert("Số điện thoại này đã có trong danh bạ!");
+                    return false;
+                }
+            }
+            return true;
+        }
+
+    
+        contactForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const name = nameInput.value.trim();
+            const phone = phoneInput.value.trim();
+            const email = emailInput.value.trim();
+
+            if (!validate(name, phone, editId !== null)) return;
+
+            if (editId !== null) {
+             
+                const index = contacts.findIndex(c => c.phone === editId);
+                contacts[index] = { name, phone, email };
+                editId = null;
+                submitBtn.innerText = "Thêm liên hệ";
+                phoneInput.disabled = false;
+            } else {
+             
+                contacts.push({ name, phone, email });
+            }
+
+            contactForm.reset();
+            renderContacts();
+        });
+
+      
+        window.prepareEdit = function (phone) {
+            const contact = contacts.find(c => c.phone === phone);
+            if (contact) {
+                nameInput.value = contact.name;
+                phoneInput.value = contact.phone;
+                emailInput.value = contact.email;
+
+                editId = contact.phone;
+                submitBtn.innerText = "Cập nhật liên hệ";
+                phoneInput.disabled = true; 
+                nameInput.focus();
+            }
+        };
+
+        
+        window.deleteContact = function (phone) {
+            if (confirm("Bạn muốn xóa liên hệ này?")) {
+                contacts = contacts.filter(c => c.phone !== phone);
+                renderContacts();
+            }
+        };
+
+       
+        renderContacts();
+    </script>
+</body>
+</html>
