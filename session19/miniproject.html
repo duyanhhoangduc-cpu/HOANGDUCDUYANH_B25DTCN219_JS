@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mini Shop</title>
+
+<style>
+:root {
+  --bg: #f4f4f4;
+  --panel: #ffffff;
+  --panel-border: #d5d5d5;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --accent: #0f766e;
+  --danger: #b91c1c;
+}
+
+body {
+  margin: 0;
+  font-family: Arial;
+  background: var(--bg);
+  padding: 16px;
+}
+
+.main {
+  display: flex;
+  gap: 16px;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 10px;
+}
+
+.card {
+  border: 1px solid #ccc;
+  background: #fff;
+}
+
+.card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 10px;
+}
+
+.price {
+  font-weight: bold;
+}
+
+button {
+  cursor: pointer;
+  padding: 6px 10px;
+}
+
+.btn-primary {
+  background: #0f766e;
+  color: #fff;
+}
+
+.btn-danger {
+  background: red;
+  color: #fff;
+}
+
+.panel {
+  background: #fff;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table td, .table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.right {
+  text-align: right;
+}
+
+.center {
+  text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Mini Shop</h1>
+<button id="clear-cart-btn" class="btn-danger">Xóa Giỏ Hàng</button>
+
+<div class="main">
+
+<div class="panel" style="flex:2">
+  <h2>Sản phẩm</h2>
+  <div id="products-grid" class="products-grid"></div>
+</div>
+
+<div class="panel" style="flex:1">
+  <h2>Giỏ hàng</h2>
+
+  <p>Tổng dòng: <span id="stat-lines">0</span></p>
+  <p>Tổng số lượng: <span id="stat-qty">0</span></p>
+  <p>Tổng tiền: <span id="stat-total">0</span></p>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Tên</th>
+        <th>Giá</th>
+        <th>SL</th>
+        <th>Tiền</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="cart-tbody"></tbody>
+  </table>
+
+</div>
+
+</div>
+
+<script>
+const products = [
+{ id:1,name:"Tai nghe",price:320000,image:"https://picsum.photos/seed/1/400"},
+{ id:2,name:"Bàn phím",price:790000,image:"https://picsum.photos/seed/2/400"},
+{ id:3,name:"Chuột",price:450000,image:"https://picsum.photos/seed/3/400"},
+{ id:4,name:"USB",price:120000,image:"https://picsum.photos/seed/4/400"},
+{ id:5,name:"Tản nhiệt",price:210000,image:"https://picsum.photos/seed/5/400"},
+{ id:6,name:"Cáp",price:80000,image:"https://picsum.photos/seed/6/400"}
+];
+
+function loadCart(){
+  try{
+    return JSON.parse(localStorage.getItem("cart"))||[];
+  }catch{
+    return [];
+  }
+}
+
+let cart = loadCart();
+
+function saveCart(){
+  localStorage.setItem("cart",JSON.stringify(cart));
+}
+
+function format(n){
+  return n.toLocaleString("vi-VN")+" VNĐ";
+}
+
+const productGrid = document.getElementById("products-grid");
+const cartTbody = document.getElementById("cart-tbody");
+
+function renderProducts(){
+  productGrid.innerHTML="";
+  products.forEach(p=>{
+    productGrid.innerHTML+=`
+    <div class="card">
+      <img src="${p.image}">
+      <div class="card-body">
+        <h3>${p.name}</h3>
+        <div class="price">${format(p.price)}</div>
+        <button class="btn-primary" onclick="addToCart(${p.id})">Thêm</button>
+      </div>
+    </div>`;
+  });
+}
+
+function addToCart(id){
+  let item = cart.find(i=>i.id===id);
+  if(item){
+    item.qty++;
+  }else{
+    let p = products.find(p=>p.id===id);
+    cart.push({...p,qty:1});
+  }
+  saveCart();
+  renderCart();
+}
+
+function renderCart(){
+  cartTbody.innerHTML="";
+  let totalQty=0,total=0;
+
+  cart.forEach((i,idx)=>{
+    totalQty+=i.qty;
+    total+=i.price*i.qty;
+
+    cartTbody.innerHTML+=`
+    <tr>
+      <td>${i.name}</td>
+      <td class="right">${format(i.price)}</td>
+      <td class="center">
+        <button onclick="dec(${idx})">-</button>
+        ${i.qty}
+        <button onclick="inc(${idx})">+</button>
+      </td>
+      <td class="right">${format(i.price*i.qty)}</td>
+      <td><button onclick="del(${idx})">X</button></td>
+    </tr>`;
+  });
+
+  document.getElementById("stat-lines").innerText=cart.length;
+  document.getElementById("stat-qty").innerText=totalQty;
+  document.getElementById("stat-total").innerText=format(total);
+}
+
+function inc(i){
+  cart[i].qty++;
+  saveCart();
+  renderCart();
+}
+
+function dec(i){
+  if(cart[i].qty>1){
+    cart[i].qty--;
+  }else{
+    cart.splice(i,1);
+  }
+  saveCart();
+  renderCart();
+}
+
+function del(i){
+  if(confirm("Xóa sản phẩm?")){
+    cart.splice(i,1);
+    saveCart();
+    renderCart();
+  }
+}
+
+document.getElementById("clear-cart-btn").onclick=function(){
+  if(confirm("Xóa toàn bộ giỏ hàng?")){
+    cart=[];
+    saveCart();
+    renderCart();
+  }
+};
+
+renderProducts();
+renderCart();
+</script>
+
+</body>
+</html>
