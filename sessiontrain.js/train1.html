@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <input type="text">
+        <input type="date" name="" id="">
+        <select name="" id="">
+            <option value="">loại công việc</option>
+            <option value="">to do</option>
+            <option value="">pending</option>
+        </select>
+        <button>thêm công việc</button>
+    </div>
+    <br>
+    <input type="text" placeholder="tìm kiếm công việc"> <button>tìm kiếm</button>
+    <select name="" id="">
+            <option value="">lọc theo loại công việc</option>
+            <option value="">to do</option>
+            <option value="">pending</option>
+        </select>
+    <ul id="list">
+        <li>công việc 1 - ngày đến hạn - loại công việc <button>sửa</button><button>xóa</button> </li>
+        <li>công việc 2 - ngày đến hạn - loại công việc  <button>sửa</button><button>xóa</button> </li>
+        <li>công việc 3 - ngày đến hạn - loại công việc  <button>sửa</button><button>xóa</button> </li>
+
+    </ul>
+</body>
+<script>
+    let todos = [
+        {id:1, todo:"học", deadline: "26/3", status: "to do"},
+        {id:2, todo:"chơi", deadline: "26/3", status: "pending"},
+        {id:3, todo:"làm việc nhà", deadline: "26/3", status: "to do"},
+    ]
+    // đặt dữ liệu vào kho trên web
+    localStorage.setItem("todos", JSON.stringify(todos));
+
+    let todosa = JSON.parse(localStorage.getItem("todos")) || [];
+
+    function renderList(){
+        const todoListElement = document.getElementById("list");
+        todos.forEach(todo => {
+            return todoListElement.innerHTML += ` <li>${todo.todo} - ${todo.deadLine} - ${todo.status} <button> Sửa </button> <button> Xóa </button> </li>`
+    });
+    }
+    renderTodos();
+</script>
+</html>

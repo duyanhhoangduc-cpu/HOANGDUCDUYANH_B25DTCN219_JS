@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function deleteData(id) {
+
+    let index = dishs.findIndex(p => p.id === id);
+
+    if (!confirm("Bạn có chắc chắn muốn xóa sản phẩm không?")) return;
+
+    dishs.splice(index, 1);
+    alert("Xóa sản phẩm thành công!");
+}
+    </script>
+</body>
+</html>

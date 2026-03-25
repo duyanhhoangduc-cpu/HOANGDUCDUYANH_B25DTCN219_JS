@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="demo-id">Nguyen Ngoc Thanh Mai</h1>
+    <h2 class = "demo-class" >55 cân</h2>
+    <div>hello</div>
+    <div>bom bom</div>
+    <p id="meomeo">
+        <b>avatar</b>
+        blabla siuuuu messi
+    </p>
+    <img src="https://media-cdn-v2.laodong.vn/storage/newsportal/2024/10/7/1404381/Chuong-Nhuoc-Nam-Gd.jpg">
+    <a id="bam" href="https://web.facebook.com/?locale=vi_VN&_rdc=1&_rdr#">on click!</a>
+</body>
+<script>
+    // truy vấn các phần tử html
+   let h1 = document.getElementById("demo-id");
+   console.log(h1);
+   let h2 = document.getElementsByClassName("demo-class"); //gần giống với mảng nhưng khác ở chỗ ko Sử dụng đc các phương thức 
+   console.log(h2);
+   // kết quả trả về HTMLCollection
+   let div = document.getElementsByTagName("div");// kết quả cũng trả về HTMLCollection
+   console.log(div);
+   // các phương thức khác
+   //document.querySelector("div#demo-id".demo-class");
+   let elements = document.querySelectorAll("demo-class");
+   //lấy tất cả các thẻ html cùng class
+
+   //############################################################################
+    //tương tác các html trong js
+    let p = document.getElementById("meomeo");
+    console.dir(p);
+    console.log(p.innerHTML); // lấy toàn bộ nội dung bên trong 1 thẻ html
+    console.log(p.innerText); // lấy nội dung là text ko lấy thẻ con , bỏ qua khoảng trắng
+    console.log(p.textContent); // lấy nội dung là text lấy cả khoảng trắng, xuống dòng
+    p.innerHTML = "nội dung được cập nhật";
+
+
+   //############################################################################
+    //getAttribute() //lấy thuộc tính như link ảnh, link web
+    let img = document.getElementsByTagName("img")[0];
+    console.log(img);
+    //vdu
+    let link = img.getAttribute("src");//lấy link ảnh
+    console.log(link);
+    //vdu
+    let a = document.getElementById("bam");
+    let layphuongthuc = a.getAttribute("href");
+    console.log("layphuongthuc");
+
+    //setAttribute() // cập nhật lại các attribute
+    //vdu
+    let new = a.setAttribute("href", "https://www.youtube.com/watch?v=usTGpgBcfC0&t=1s");
+    Element.setAttribute("TEN-THUOC-TINH-MOI");
+    //VDU
+    let linkOld = document.getElementById("bam");
+    linkOld.setAttribute("href", "https://www.youtube.com/watch?v=usTGpgBcfC0&t=1s");
+    
+
+    
+    
+    
+
+
+    
+    
+    
+    
+
+</script>   
+</html>

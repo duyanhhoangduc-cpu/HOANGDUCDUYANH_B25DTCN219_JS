@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo</title>
+</head>
+<body>
+    <div>
+        <input type="text" id="todoInput" placeholder="nhập công việc">
+        <input type="date" id="dateInput">
+        <select id="statusInput">
+            <option value="">loại công việc</option>
+            <option value="to do">to do</option>
+            <option value="pending">pending</option>
+        </select>
+        <button onclick="addTodo()">thêm công việc</button>
+    </div>
+
+    <ul id="list"></ul>
+</body>
+
+<script>
+    let todos = JSON.parse(localStorage.getItem("todos")) || [];
+
+    function renderList(){
+        const todoListElement = document.getElementById("list");
+        todoListElement.innerHTML = "";
+        todos.forEach(todo => {
+            todoListElement.innerHTML += `
+                <li>
+                    ${todo.todo} - ${todo.deadline} - ${todo.status}
+                    <button onclick="deleteTodo(${todo.id})">Xóa</button>
+                </li>
+            `;
+        });
+    }
+
+    function addTodo(){
+        const todoInput = document.getElementById("todoInput").value;
+        const dateInput = document.getElementById("dateInput").value;
+        const statusInput = document.getElementById("statusInput").value;
+
+        if(!todoInput || !dateInput || !statusInput){
+            alert("Vui lòng nhập đầy đủ!");
+            return;
+        }
+        const newTodo = {
+            id: todos.length !== 0 ? todos[todos.length - 1].id + 1 : 1,
+            todo: todoInput,
+            deadline: dateInput,
+            status: statusInput
+        };
+        todos.push(newTodo);
+        localStorage.setItem("todos", JSON.stringify(todos));
+
+        renderList();
+
+        // reset input
+        document.getElementById("todoInput").value = "";
+        document.getElementById("dateInput").value = "";
+        document.getElementById("statusInput").value = "";
+    }
+
+    function deleteTodo(id){
+        if(confirm("Bạn có chắc muốn xóa không?")){
+            todos = todos.filter(todo => todo.id !== id);
+            localStorage.setItem("todos", JSON.stringify(todos));
+            renderList();
+        }
+    }
+    function searchTodo(){
+    const keyword = document.getElementById("searchInput").value.toLowerCase();
+
+    const result = todos.filter(todo => 
+        todo.todo.toLowerCase().includes(keyword)
+    );
+
+    renderList(result);
+}
+
+    renderList();
+</script>
+</html>

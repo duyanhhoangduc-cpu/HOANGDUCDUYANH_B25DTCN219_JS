@@ -1,0 +1,222 @@
+```html
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Spotify Mini</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #527b4d;
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            width: 750px;
+            margin: auto;
+            background: #434343;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #1DB954;
+        }
+
+        .form input {
+            padding: 10px;
+            margin-right: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .form button {
+            padding: 10px 15px;
+            background: #1DB954;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form button:hover {
+            background: #1ed760;
+        }
+
+        #search {
+            width: 100%;
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 20px;
+            border: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #282828;
+        }
+
+        td, th {
+            padding: 10px;
+            text-align: center;
+        }
+
+        tr:hover {
+            background: #222;
+        }
+
+        button {
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        button:nth-child(1) {
+            background: #1DB954;
+            color: white;
+        }
+
+        button:nth-child(2) {
+            background: #e74c3c;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2 id="formTitle">🎵 Thêm bài hát</h2>
+
+    <div class="form">
+        <input type="text" id="title" placeholder="Tên bài hát">
+        <input type="text" id="artist" placeholder="Ca sĩ">
+        <button onclick="handleSubmit()" id="submitBtn">Thêm</button>
+    </div>
+
+    <input type="text" id="search" placeholder="🔍 Tìm theo tên bài hát..." oninput="searchSong()">
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên bài hát</th>
+                <th>Ca sĩ</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody id="songTable"></tbody>
+    </table>
+</div>
+
+<script>
+let songs = JSON.parse(localStorage.getItem("songs")) || [];
+let editId = null;
+
+
+function render(data = songs) {
+    let html = data.map(song => `
+        <tr>
+            <td>${song.id}</td>
+            <td>${song.title}</td>
+            <td>${song.artist}</td>
+            <td>
+                <button onclick="editSong(${song.id})">Sửa</button>
+                <button onclick="deleteSong(${song.id})">Xóa</button>
+            </td>
+        </tr>
+    `).join("");
+
+    document.getElementById("songTable").innerHTML = html;
+}
+
+
+function save() {
+    localStorage.setItem("songs", JSON.stringify(songs));
+}
+
+
+function handleSubmit() {
+    let title = document.getElementById("title").value.trim();
+    let artist = document.getElementById("artist").value.trim();
+
+    if (!title || !artist) {
+        alert("Không được để trống!");
+        return;
+    }
+
+    if (editId === null) {
+        let newSong = {
+            id: songs.length ? songs[songs.length - 1].id + 1 : 1,
+            title,
+            artist
+        };
+        songs.push(newSong);
+    } else {
+        let index = songs.findIndex(s => s.id === editId);
+        songs[index].title = title;
+        songs[index].artist = artist;
+
+        editId = null;
+        document.getElementById("formTitle").innerText = "🎵 Thêm bài hát";
+        document.getElementById("submitBtn").innerText = "Thêm";
+    }
+
+    save();
+    render();
+    resetForm();
+}
+
+
+function resetForm() {
+    document.getElementById("title").value = "";
+    document.getElementById("artist").value = "";
+}
+
+
+function editSong(id) {
+    let song = songs.find(s => s.id === id);
+
+    document.getElementById("title").value = song.title;
+    document.getElementById("artist").value = song.artist;
+
+    document.getElementById("formTitle").innerText = "✏️ Sửa bài hát";
+    document.getElementById("submitBtn").innerText = "Cập nhật";
+
+    editId = id;
+}
+
+
+function deleteSong(id) {
+    if (!confirm("Bạn có chắc muốn xóa?")) return;
+
+    songs = songs.filter(s => s.id !== id);
+    save();
+    render();
+}
+
+
+function searchSong() {
+    let keyword = document.getElementById("search").value.toLowerCase();
+
+    let result = songs.filter(song =>
+        song.title.toLowerCase().includes(keyword)
+    );
+
+    render(result);
+}
+
+
+render();
+</script>
+
+</body>
+</html>
+```
