@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <input type="text" id="todoInput">
+        <input type="date" name="" id="todoDate">
+        <select name="" id="todoStatus">
+            <option value="">loại công việc</option>
+            <option value="to do">to do</option>
+            <option value="pending">pending</option>
+        </select>
+        <button onclick="addOrEditTodo()" id="todoBtn">Thêm công việc</button>
+    </div>
+    <br>
+    <input type="text" placeholder="tìm kiếm công việc" name="" id="findInput"><button onclick="findTodoByName()">Tìm kiếm</button>
+    <select name="" id="filterInput" onchange="filterTodoByStatus()">
+            <option value="loại công việc">lọc theo loại công việc</option>
+            <option value="to do">to do</option>
+            <option value="pending">pending</option>
+        </select>
+    <h3>Danh sách công việc</h3>
+    <ul id="todoList">
+        
+    </ul>
+</body>
+<script>
+    //   let todos =[
+    //      {id: 1, todo: "học", deadline: "2026-03-27", status: "to do"},
+    //      {id: 2, todo: "chơi", deadline: "2026-03-27", status: "pending"},
+    //     {id: 3, todo: "làm việc nhà", deadline: "2026-03-27", status: "to do"}
+    //  ];
+    //  localStorage.setItem("todos", JSON.stringify(todos)); //stringify chuyển đổi từ mảng sang dạng chuỗi json
+     //lấy dữ liệu bên trong kho
+     let todos = JSON.parse(localStorage.getItem("todos")) || [];
+    // || [] vì dữ liệu lưu trong kho chỉ có ở trong máy mình của ng khác thì ko nên phải có 
+    let editTodoId = 0; //cờ
+
+//các bước làm:
+// b1: tạo biến để gọi ptu cần hiển thị ra js 
+// b2: xóa toàn bộ nội dung trước khi render lại để tránh lặp (="")
+// b3: duyệt mảng để lấy tất cả các ptu có trong mảng (innerHTML)
+function renderTodos(todos){
+    const todoListElement = document.getElementById("todoList");
+    todoListElement.innerHTML = "";
+    todos.forEach(todo => {
+        todoListElement.innerHTML += `<li>${todo.todo} - ${todo.deadline} - ${todo.status} <button onclick="startEdit(${todo.id})">sửa</button><button onclick="deleteTodo(${todo.id})">xóa</button></li>`
+    })
+}
+
+// các bước làm:
+// b1: tạo các biến để gọi các ptu cần lấy ra js
+// b2: lấy giá trị các ptu đó
+// b3: tạo 1 mảng đối tượng mới
+// b4: push vào cuối mảng tổng ban đầu
+// b5: lưu vào kho trên web
+// b6: render lại
+function addOrEditTodo(){
+    const todoInputElement = document.getElementById("todoInput");
+    const todoDateElement = document.getElementById("todoDate");
+    const todoStatusElement = document.getElementById("todoStatus");
+    const todoInput = todoInputElement.value;
+    const todoDate = todoDateElement.value; 
+    const todoStatus = todoStatusElement.value;
+
+    if(editTodoId === 0){
+        const newTodo = {
+        todo: todoInput,
+        deadline: todoDate,
+        status: todoStatus,
+        id: todos.length !== 0 ? todos[todos.length - 1].id + 1 : 1
+    }
+    todos.push(newTodo);
+    } else {
+        const todoButton = document.getElementById("todoBtn");
+        let editTodoIndex = todos.findIndex(todo => todo.id === editTodoId);
+        todos[editTodoIndex].todo = todoInput;
+        todos[editTodoIndex].deadline = todoDate;
+        todos[editTodoIndex].status = todoStatus;
+        editTodoId = 0;
+        todoButton.innerHTML="thêm công việc";
+    }
+    todoInputElement.value = "";
+    todoDateElement.value = "";
+    todoStatusElement.value = "";
+    localStorage.setItem("todos", JSON.stringify(todos));
+    renderTodos(todos);
+}
+
+// các bước làm:
+// b1: truyền tham số đối số vào hàm (đầu tiên truyền onclick vào nút ở phần render)
+// b2: lọc các id khác với todo đc tìm thấy để xóa cho vào 1 mảng mới (filter)
+// b3: lưu trữ vào kho
+// b4: render lại todos
+function deleteTodo(todoId){
+    todos = todos.filter(todo => todo.id !== todoId);
+    localStorage.setItem("todos",JSON.stringify(todos));
+    renderTodos(todos);
+}
+
+//các bước làm: ( tìm khi click)
+//b1: tạo biến để gọi các ptu cần lấy ra js
+//b2: lấy giá trị ptu đó
+//b3: lọc tên
+//b4: render lại
+
+//cách 2:( tìm khi nhập )
+// b1: gắn sự kiện onInput vào id="findInput"
+// b2: lấy giá trị ra
+// b3: lọc
+// b4: render lại
+function findTodoByName(){
+    const findInputElement = document.getElementById("findInput");
+    const findInput = findInputElement.value;
+    let findTodos = todos.filter(todo => todo.todo.includes(findInput));
+    renderTodos(findTodos);
+}
+
+//các bước làm:
+//b1: dùng onchange
+//b2: giống tìm kiếm
+function filterTodoByStatus(){
+    const filterTodoElement = document.getElementById("filterInput");
+    const filterStatus = filterTodoElement.value;
+    const filterTodos = todos.filter(todo => todo.status === filterStatus);
+    renderTodos(filterTodos);
+}
+
+function startEdit(todoId){
+    const editTodo = todos.find(todo => todo.id = todoId);
+    const todoInputElement = document.getElementById("todoInput");
+    const todoDeadlineElement = document.getElementById("todoDate");
+    const todoStatusElement = document.getElementById("todoStatus");
+    const todoButton = document.getElementById("todoBtn");
+
+    todoInputElement.value = editTodo.todo;
+    todoDeadlineElement.value = editTodo.deadline;
+    todoStatusElement.value = editTodo.status;
+    todoButton.innerText = "Lưu";
+    editTodoId = todoId;
+
+}
+renderTodos(todos);
+</script>
+</html>
