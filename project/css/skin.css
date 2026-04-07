@@ -1,0 +1,89 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+.container{
+    display: flex;
+    justify-content: space-around;
+    min-height: 100vh;
+    background-color: #354F7E;
+    align-items: center;
+    background-image: url("../image/Gemini_Generated_Image_qtyaoaqtyaoaqtya.png");
+    background-size: cover;
+    background-position: center;  
+    background-repeat: no-repeat;
+}
+.left{
+    flex:1;
+    margin-left: 119px;
+    
+}
+.right {
+    width: 492px;
+    height: 554px;
+    background-color: #E9EBEF;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-right: 290px;
+    flex:1;
+    
+  
+}
+form {
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+
+}
+
+.o2, .o3, .o4 {
+    width: 100%;
+}
+
+.o2 {
+    margin-top: 30px;
+}
+input {
+    padding:5px;
+}
+
+button {
+    width: 80px;
+    height: 38px;
+    background-color: #0D6EFD;
+    border: 0px;
+    border-radius: 4px;
+    color: #BAD0F8;
+}
+.dong1 {
+    color: #000000;
+}
+
+.dong1 a{
+    color: #DC3545;
+}
+span {
+    color:#DC3545;
+}
+h1 {
+    color:#E8EFFD;
+    text-align: center;
+    margin-bottom: 70px;
+    font-size: 50px;
+    
+}
+.logo {
+    color: #BAD0F8;
+    text-align: center;
+}
+
+
+

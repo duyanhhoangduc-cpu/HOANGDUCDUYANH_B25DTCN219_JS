@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Thông tin cá nhân</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f5f6fa;
+            display: flex;
+            justify-content: center;
+            padding: 50px;
+        }
+
+        .profile-card {
+            background: white;
+            width: 400px;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .avatar-box {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .avatar-box img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            background: #4f46e5;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #4338ca;
+        }
+
+        .section {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="profile-card">
+    <h2>Thông tin cá nhân</h2>
+
+    <!-- Avatar -->
+    <div class="avatar-box">
+        <img id="avatar" src="" alt="avatar">
+        <input type="file" id="uploadAvatar">
+    </div>
+
+    <!-- Info -->
+    <div class="section">
+        <input type="text" id="name" placeholder="Tên">
+        <input type="number" id="age" placeholder="Tuổi">
+        <input type="email" id="email" placeholder="Email">
+        <button onclick="saveInfo()">Lưu thông tin</button>
+    </div>
+
+    <!-- Change password -->
+    <div class="section">
+        <input type="password" id="oldPass" placeholder="Mật khẩu cũ">
+        <input type="password" id="newPass" placeholder="Mật khẩu mới">
+        <button onclick="changePassword()">Đổi mật khẩu</button>
+    </div>
+</div>
+
+<script>
+let user = JSON.parse(localStorage.getItem("user")) || {
+    name: "",
+    age: "",
+    email: "",
+    password: "duyanh542007",
+    avatar: "https://i.pravatar.cc/150"
+};
+
+function loadUser() {
+    document.getElementById("name").value = user.name;
+    document.getElementById("age").value = user.age;
+    document.getElementById("email").value = user.email;
+    document.getElementById("avatar").src = user.avatar;
+}
+
+function saveInfo() {
+    user.name = document.getElementById("name").value;
+    user.age = document.getElementById("age").value;
+    user.email = document.getElementById("email").value;
+
+    localStorage.setItem("user", JSON.stringify(user));
+    alert("Đã lưu thông tin!");
+}
+
+
+function changePassword() {
+    const oldPass = document.getElementById("oldPass").value;
+    const newPass = document.getElementById("newPass").value;
+
+    if (oldPass !== user.password) {
+        alert("Sai mật khẩu cũ!");
+        return;
+    }
+
+    user.password = newPass;
+    localStorage.setItem("user", JSON.stringify(user));
+
+    alert("Đổi mật khẩu thành công!");
+}
+
+document.getElementById("uploadAvatar").addEventListener("change", function () {
+    const file = this.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+        user.avatar = e.target.result; // base64
+        localStorage.setItem("user", JSON.stringify(user));
+        document.getElementById("avatar").src = user.avatar;
+    };
+
+    reader.readAsDataURL(file);
+});
+
+loadUser();
+</script>
+
+</body>
+</html>

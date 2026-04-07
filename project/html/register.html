@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="../css/skin.css">
+</head>
+
+<body>
+    <header class="container">
+        <!-- BÊN TRÁI -->
+        <div class="left">
+            <div>
+                <h1>Welcome to the website</h1>
+                <p class="logo">RIKKEI EDUCATION</p>
+            </div>
+        </div>
+        <!-- BÊN PHẢI -->
+        <div class="right">
+            <form class="form-box">
+
+                <div class="row">
+                    <div>
+                        <input id="firstName" type="text">
+                        <br>
+                        <label>First name</label>
+                    </div>
+
+                    <div>
+                        <input id="lastName" class="o1" type="text">
+                        <br>
+                        <label class="o1">Last name</label>
+                    </div>
+                </div>
+
+                <div>
+                    <input id="email" class="o2" type="text">
+                    <br>
+                    <label>Email address</label>
+                </div>
+                <br>
+
+                <div>
+                    <input id="password" class="o3" type="password">
+                    <br>
+                    <label>Password</label>
+                </div>
+
+                <div>
+                    <br>
+                    <input id="confirmPassword" class="o4" type="password">
+                    <br>
+                    <label>Confirm Password</label>
+                </div>
+                <br>
+                <button type="submit">Register</button>
+                <p class="dong1">Already have an account? <a href="login.html" target="_blank"
+                        rel="noopener noreferrer"><u>Login</u></a></p>
+            </form>
+        </div>
+    </header>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.querySelector(".form-box");
+
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                let firstName = document.getElementById("firstName").value.trim();
+                let lastName = document.getElementById("lastName").value.trim();
+                let email = document.getElementById("email").value.trim();
+                let password = document.getElementById("password").value;
+                let confirmPassword = document.getElementById("confirmPassword").value;
+
+                let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                if (firstName === "" || lastName === "") {
+                    alert("Họ và tên không được để trống");
+                    return;
+                }
+
+                if (email === "") {
+                    alert("Email không được để trống");
+                    return;
+                }
+
+                if (!emailRegex.test(email)) {
+                    alert("Email không đúng định dạng");
+                    return;
+                }
+
+                if (password === "") {
+                    alert("Mật khẩu không được để trống");
+                    return;
+                }
+
+                if (password.length < 6) {
+                    alert("Mật khẩu tối thiểu 6 ký tự");
+                    return;
+                }
+
+                if (confirmPassword === "") {
+                    alert("Vui lòng nhập mật khẩu xác nhận");
+                    return;
+                }
+
+                if (password !== confirmPassword) {
+                    alert("Mật khẩu không trùng khớp");
+                    return;
+                }
+
+                let users = JSON.parse(localStorage.getItem("users")) || [];
+
+                if (users.some(u => u.email === email)) {
+                    alert("Email này đã được đăng ký!");
+                    return;
+                }
+
+                const newUser = {
+                    id: Date.now(),
+                    name: firstName + " " + lastName,
+                    email: email,
+                    password: password,
+                    status: "active"
+                };
+
+                users.push(newUser);
+                localStorage.setItem("users", JSON.stringify(users));
+
+                alert("Đăng ký thành công!");
+
+                window.location.href = "login.html";
+            });
+        });
+    </script>
+</body>
+
+</html>

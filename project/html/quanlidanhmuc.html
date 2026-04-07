@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý danh mục</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fc;
+            color: #000000;
+        }
+
+
+        .dau-trang {
+            background: #fff;
+            padding: 12px 60px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            gap: 25px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .icon-dau {
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+            opacity: 0.7;
+        }
+
+        .anh-dai-dien {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #ddd;
+        }
+
+        .khung-lon {
+            display: flex;
+            padding: 40px 60px;
+            gap: 40px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .cot-trai {
+            width: 240px;
+            flex-shrink: 0;
+        }
+
+        .nut-bam {
+            display: flex;
+            align-items: center;
+            padding: 12px 18px;
+            margin-bottom: 12px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #0E73F6;
+            background-color: #D7EDFF;
+            border: 1px solid #eef0f2;
+            font-size: 15px;
+            transition: 0.3s;
+            font-weight: 700;
+        }
+
+        .nut-bam:hover {
+            background-color: #cce4ff;
+        }
+
+        .nut-bam.active {
+            background-color: #D7EDFF;
+            border-color: #d0e0ff;
+        }
+
+        .icon-cam {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+        }
+
+
+        .noi-dung-chinh {
+            flex: 1;
+        }
+
+        .thanh-tim-kiem-con {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .o-tim-container {
+            position: relative;
+            width: 60%;
+        }
+
+        .o-tim-container img {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            opacity: 0.5;
+            margin-left: 200px;
+        }
+
+        .o-tim-categories {
+            width: 100%;
+            padding: 20px 12px 20px 45px;
+            border: 0px solid #eee;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+            background: #fff;
+            font-size: 20px;
+            margin-left: 200px;
+        }
+
+        ::placeholder {
+            font-size: 700;
+            color: #101828;
+        }
+
+        .the-trang {
+            background: #fff;
+            padding: 30px;
+        }
+
+        .tieu-de-quan-ly {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+
+        .form-nhap {
+            margin-bottom: 35px;
+        }
+
+        .nhan-nhap {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .o-nhap-lieu {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            outline: none;
+        }
+
+        .nut-them {
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .nut-them:hover {
+            background-color: #218838;
+        }
+
+
+        .tieu-de-bang {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            background-color: #f1f5f9;
+            padding: 12px 15px;
+            font-size: 13px;
+            text-transform: uppercase;
+            border: 1px solid #e2e8f0;
+        }
+
+        td {
+            padding: 12px 15px;
+            border: 1px solid #e2e8f0;
+            font-size: 14px;
+        }
+
+        .nut-hanh-dong {
+            color: #0E73F6;
+            text-decoration: none;
+            margin-right: 15px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="dau-trang">
+        <img src="../image/mail.png" alt="icon1" class="icon-dau">
+        <img src="../image/bell.png" alt="icon2" class="icon-dau">
+        <img src="../image/10d5c319419f2137bf8772f28aaf576b74a68518 (1).png" alt="avatar" class="anh-dai-dien">
+    </header>
+
+    <div class="khung-lon">
+        <aside class="cot-trai">
+            <a href="quanlynguoidung.html" class="nut-bam">
+                <img src="../image/Users_Group.png" class="icon-cam"> Manage Users
+            </a>
+            <a href="quanlidanhmuc.html" class="nut-bam">
+                <img src="../image/Book.png" class="icon-cam"> Manage Entries
+            </a>
+            <a href="adminthemmoibaiviet2.html" class="nut-bam active">
+                <img src="../image/Book_Open.png" class="icon-cam"> Manage Article
+            </a>
+            <a href="quanlynguoidung.html" class="nut-bam" style="margin-top: 20px;">
+                <img src="../image/Log_Out.png" class="icon-cam"> Log out
+            </a>
+        </aside>
+
+        <main class="noi-dung-chinh">
+            <div class="thanh-tim-kiem-con">
+                <div class="o-tim-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/622/622669.png" alt="search">
+                    <input type="text" class="o-tim-categories" placeholder="Search Article Categories">
+                </div>
+            </div>
+
+            <div class="the-trang">
+                <h2 class="tieu-de-quan-ly">📂 Manage Categories</h2>
+
+                <div class="form-nhap">
+                    <label class="nhan-nhap">Category Name:</label>
+                    <input type="text" class="o-nhap-lieu" placeholder="Enter category name">
+                    <button class="nut-them">Add Category</button>
+                </div>
+
+                <div class="tieu-de-bang">📋 Category List</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 10%;">#</th>
+                            <th style="width: 60%;">Category Name</th>
+                            <th style="width: 30%;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+    <script src="../js/brain-adminthemUser.js"></script>
+</body>
+
+</html>

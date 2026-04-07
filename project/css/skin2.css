@@ -1,0 +1,72 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.left{
+    flex:1;
+    margin: 62px;
+}
+.right{
+    flex:1;
+}
+.logo1{
+    display: flex;
+    align-items: center;
+    gap:10px;
+}
+
+.o1, .o2 {
+    margin-top: 20px;
+}
+
+input{
+    padding: 10px;
+    width:60%;
+}
+
+.cach{
+    margin: 10px;
+}
+button{
+    background-color: #0D6EFD;
+    border: 0px;
+    color: #FFFFFF;
+    padding:14px 40px;
+    border-radius: 5px;
+    margin-top: 56px;
+}
+label {
+    color:#212529;
+}
+.dieu-huong{
+    display: flex;
+    gap:10px;
+    margin-top:30px;
+}
+
+.infooter{
+    height: 72px;
+    background-color: #0D6EFD;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 20px;
+    color: #FFFFFF;
+    margin-top: 257px;
+}
+
+.anh{
+    display: flex;
+    gap:20px;
+    padding-right: 20px;
+}
+
+.dieu-huong a {
+    color: #DC3545;
+}

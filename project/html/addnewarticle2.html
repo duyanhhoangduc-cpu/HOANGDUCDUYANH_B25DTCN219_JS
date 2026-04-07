@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rikkei Edu Blog - Full Width</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            color: #1a1a1a;
+            line-height: 1.5;
+            width: 100%;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            background: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            color: #E31B54;
+        }
+
+        .logo img {
+            height: 24px;
+            margin-right: 8px;
+        }
+
+        .nav-center {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            padding: 0 40px;
+        }
+
+        .search-box {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 15px 10px 45px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            background-color: #f9fafb;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-auth {
+            text-decoration: none;
+            color: #252C32;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: 0.5px solid #DDE2E4;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 100vw;
+            margin: 0;
+            padding: 0;
+        }
+
+        .add-article-header {
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .add-new-btn {
+            color: #1570EF;
+            text-decoration: none;
+            font-size: 32px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .post-card {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #f0f0f0;
+            background: #fff;
+            padding-bottom: 20px;
+        }
+
+        .img-container {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .date {
+            color: #6941C6;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .post-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #101828;
+        }
+
+        .desc {
+            color: #667085;
+            margin-bottom: 20px;
+            font-size: 15px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .post-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .tag {
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .tag-purple {
+            background: #F9F5FF;
+            color: #6941C6;
+        }
+
+        .edit-link {
+            color: #E31B54;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            background-color: #F9F5FF;
+            border-radius: 8px;
+            padding: 7px;
+        }
+
+        .edit-link:hover {
+            text-decoration: underline;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #eaecf0;
+            padding: 40px 20px;
+            margin-top: 20px;
+        }
+
+        .pagination a {
+            text-decoration: none;
+            color: #667085;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .pagination .pages {
+            display: flex;
+            gap: 5px;
+        }
+
+        .pagination .pages a {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #667085;
+        }
+
+        .pagination .pages a.active {
+            background: #F9F5FF;
+            color: #7F56D9;
+        }
+
+
+        footer {
+            border-top: 1px solid #eee;
+            padding: 60px 20px 30px;
+            background: #fff;
+            width: 100%;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 3fr 1.5fr 1.5fr 1.5fr;
+            gap: 40px;
+            width: 100%;
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .footer-title {
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            color: #1a1a1a;
+        }
+
+        .footer-text {
+            color: #667085;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: #667085;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            color: #1570EF;
+        }
+
+        .footer-bottom {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #f2f4f7;
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+        }
+
+        .footer-bottom img {
+            width: 24px;
+            height: 24px;
+            opacity: 0.7;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <img src="../image/Chip.png" alt="Logo">
+            RIKKEI_EDU_BLOG
+        </div>
+        <div class="nav-center">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search for articles">
+            </div>
+        </div>
+        <div class="auth-buttons">
+            <a href="register.html" class="btn-auth">Sign up</a>
+            <a href="login.html" class="btn-auth">Log in</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="add-article-header">
+            <a href="formarticle2.html" class="add-new-btn">ADD NEW ARTICLE</a>
+        </div>
+
+        <div class="posts-grid"></div>
+
+        <div class="pagination">
+            <a href="#" id="prevPage">← Previous</a>
+            <div class="pages"></div>
+            <a href="#" id="nextPage">Next →</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-top">
+            <div class="footer-col">
+                <div class="footer-logo">MY BLOG</div>
+                <p class="footer-text"> <br></p>
+            </div>
+            <div class="footer-col">
+                <div class="footer-title">About Rareblocks</div>
+                <p class="footer-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dictum aliquet
+                    accumsan porta lectus ridiculus in mattis. Netus sodales in volutpat ullamcorper amet adipiscing
+                    fermentum.</p>
+            </div>
+            <div class="footer-col">
+                <div class="footer-title">Company</div>
+                <ul class="footer-links">
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Features</a></li>
+                    <li><a href="#">Works</a></li>
+                    <li><a href="#">Career</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <div class="footer-title">Help</div>
+                <ul class="footer-links">
+                    <li><a href="#">Customer Support</a></li>
+                    <li><a href="#">Delivery Details</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <div class="footer-title">Resources</div>
+                <ul class="footer-links">
+                    <li><a href="#">Free eBooks</a></li>
+                    <li><a href="#">Development Tutorial</a></li>
+                    <li><a href="#">How to - Blog</a></li>
+                    <li><a href="#">Youtube Playlist</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <img src="../image/1.png" alt="Twitter">
+            <img src="../image/2.png" alt="Facebook">
+            <img src="../image/3.png" alt="Instagram">
+            <img src="../image/4.png" alt="GitHub">
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const container = document.querySelector(".posts-grid");
+            const pagesContainer = document.querySelector(".pages");
+            const prevBtn = document.getElementById("prevPage");
+            const nextBtn = document.getElementById("nextPage");
+
+            let articles = JSON.parse(localStorage.getItem("articles")) || [];
+            articles = articles.filter(a => a && a.title && a.content && a.category);
+            articles.sort((a, b) => b.id - a.id);
+
+            let currentPage = 1;
+            const perPage = 6;
+
+            function getArticleImg(img) {
+                const defaultImg = 'https://media-cdn-v2.laodong.vn/storage/newsportal/2025/12/3/1619788/Chuong-Nhuoc-Nam-1A.jpg?w=800&h=420&crop=auto&scale=both';
+                return img && img.trim() ? img : defaultImg;
+            }
+
+            function render() {
+                container.innerHTML = "";
+                let start = (currentPage - 1) * perPage;
+                let pageData = articles.slice(start, start + perPage);
+
+                pageData.forEach(a => {
+                    container.innerHTML += `
+                <div class="post-card">
+                    <div class="img-container">
+                        <img src="${getArticleImg(a.img)}" onerror="this.src='${getArticleImg()}'">
+                    </div>
+                    <p class="date">Date: ${a.date || ""}</p>
+                    <h3 class="post-title">${a.title}</h3>
+                    <p class="desc">${a.content}</p>
+                    <div class="post-footer">
+                        <span class="tag tag-purple">${a.category}</span>
+                        <a href="#" class="edit-link">Edit your post</a>
+                    </div>
+                </div>
+            `;
+                });
+
+                // render pagination
+                pagesContainer.innerHTML = "";
+                let totalPages = Math.ceil(articles.length / perPage);
+                for (let i = 1; i <= totalPages; i++) {
+                    let a = document.createElement("a");
+                    a.href = "#";
+                    a.textContent = i;
+                    a.className = i === currentPage ? "active" : "";
+                    a.dataset.page = i;
+                    a.addEventListener("click", function (e) {
+                        e.preventDefault();
+                        currentPage = Number(this.dataset.page);
+                        render();
+                    });
+                    pagesContainer.appendChild(a);
+                }
+
+                prevBtn.style.pointerEvents = currentPage === 1 ? "none" : "auto";
+                nextBtn.style.pointerEvents = currentPage === totalPages ? "none" : "auto";
+            }
+
+            prevBtn.addEventListener("click", function (e) {
+                e.preventDefault();
+                if (currentPage > 1) { currentPage--; render(); }
+            });
+
+            nextBtn.addEventListener("click", function (e) {
+                e.preventDefault();
+                let totalPages = Math.ceil(articles.length / perPage);
+                if (currentPage < totalPages) { currentPage++; render(); }
+            });
+
+            render();
+
+        });
+    </script>
+
+</body>
+
+</html>

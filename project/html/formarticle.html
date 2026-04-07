@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Article - Enlarged</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            color: #1a1a1a;
+            background-color: #f9fafb;
+            padding: 60px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+
+        .form-container {
+            background: #fff;
+            width: 100%;
+            max-width: 950px;
+            padding: 50px;
+            position: relative;
+        }
+
+        .form-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+        }
+
+        .form-header h2 {
+            font-size: 28px;
+        }
+
+        .close-btn a {
+            text-decoration: none;
+            color: rgb(11, 11, 15);
+            font-size: 15px;
+            font-weight: bold;
+            border: 2px solid #1a1a1a;
+            padding: 1px 4px;
+            border-radius: 50%;
+        }
+
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 12px;
+            font-size: 17px;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 17px;
+        }
+
+        .gray-bg {
+            background-color: #f0f0f0;
+        }
+
+
+        .upload-area {
+            border: 1px dashed #ccc;
+            padding: 60px;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #888;
+        }
+
+        .upload-area p {
+            font-size: 16px;
+        }
+
+
+        .add-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 18px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+
+        .inline {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        select {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 17px;
+            background-color: #f0f0f0;
+            appearance: none;
+            /* bỏ style mặc định */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            cursor: pointer;
+        }
+
+        /* wrapper để thêm icon mũi tên */
+        .select-wrapper {
+            position: relative;
+        }
+
+        .select-wrapper::after {
+            content: "\f078";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .error {
+            color: red;
+            font-size: 13px;
+            margin-top: 5px;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-container">
+        <div class="form-header">
+            <h2>📝 Add New Article</h2>
+            <span class="close-btn"><a href="#">X</a></span>
+        </div>
+
+        <form>
+            <div class="form-group">
+                <label>Title:</label>
+                <input type="text" id="title">
+                <small class="error" id="titleError"></small>
+            </div>
+
+            <div class="form-group">
+                <label>Article Categories:</label>
+                <div class="select-wrapper">
+                    <select id="category" class="gray-bg">
+                        <option value="">-- Chọn chủ đề --</option>
+                        <option value="Daily Journal">Daily Journal</option>
+                        <option value="Work & Career">Work & Career</option>
+                        <option value="Personal Thoughts">Personal Thoughts</option>
+                        <option value="Emotions & Feelings">Emotions & Feelings</option>
+                    </select>
+                </div>
+                <small class="error" id="categoryError"></small>
+            </div>
+
+            <div class="form-group">
+                <label>Mood:</label>
+                <div class="select-wrapper">
+                    <input type="text" value="😀 Happy" class="gray-bg" readonly>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Content:</label>
+                <textarea id="content" rows="6"></textarea>
+                <small class="error" id="contentError"></small>
+            </div>
+
+            <div class="form-group inline">
+                <label>Status</label>
+                <div class="radio-group">
+                    <input type="radio" name="status" id="public">
+                    <label for="public">public</label>
+
+                    <input type="radio" name="status" id="private">
+                    <label for="private">private</label>
+                </div>
+            </div>
+            <small class="error" id="statusError"></small>
+
+            <div class="upload-area">
+                <div class="upload-icon" style="font-size: 40px; margin-bottom: 10px;">☁️</div>
+                <p>Browse and chose the files you want to upload from your computer</p>
+            </div>
+
+            <button type="submit" class="add-btn">Add</button>
+        </form>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const form = document.querySelector("form");
+            const categorySelect = document.getElementById("category");
+
+            const titleInput = document.getElementById("title");
+            const contentInput = document.getElementById("content");
+
+            const titleError = document.getElementById("titleError");
+            const categoryError = document.getElementById("categoryError");
+            const contentError = document.getElementById("contentError");
+            const statusError = document.getElementById("statusError");
+
+
+            function loadCategories() {
+                let categories = JSON.parse(localStorage.getItem("categories")) || [];
+
+                categorySelect.innerHTML = `<option value="">-- Chọn chủ đề --</option>`;
+
+                categories.forEach(c => {
+                    categorySelect.innerHTML += `
+                <option value="${c.name}">${c.name}</option>
+            `;
+                });
+            }
+
+            loadCategories();
+
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                let title = titleInput.value.trim();
+                let category = categorySelect.value;
+                let content = contentInput.value.trim();
+
+                let status = document.querySelector('input[name="status"]:checked')?.id;
+
+                titleError.innerText = "";
+                categoryError.innerText = "";
+                contentError.innerText = "";
+                statusError.innerText = "";
+
+                let isValid = true;
+
+                if (!title) {
+                    titleError.innerText = "Không được để trống";
+                    isValid = false;
+                }
+
+                if (!category) {
+                    categoryError.innerText = "Chọn category";
+                    isValid = false;
+                }
+
+                if (!content) {
+                    contentError.innerText = "Không được để trống";
+                    isValid = false;
+                }
+
+                if (!status) {
+                    statusError.innerText = "Chọn trạng thái";
+                    isValid = false;
+                }
+
+                if (!isValid) return;
+
+
+                let newArticle = {
+                    id: Date.now(),
+                    title: title,
+                    category: category,
+                    content: content,
+                    status: status,
+                    img: "../image/Image.png",
+                    date: new Date().toISOString().split("T")[0]
+                };
+
+                let articles = JSON.parse(localStorage.getItem("articles")) || [];
+
+                articles.push(newArticle);
+
+                localStorage.setItem("articles", JSON.stringify(articles));
+
+                window.location.href = "adminthemmoibaiviet2.html"; // sửa đúng tên file admin của mày
+            });
+        });
+    </script>
+</body>
+
+</html>

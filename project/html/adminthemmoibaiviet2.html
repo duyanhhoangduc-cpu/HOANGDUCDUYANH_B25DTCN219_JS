@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #e9ecef; 
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            width: 100%;
+            height: 64px;
+            background-color: #fff;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 0 40px;
+            border-bottom: 1px solid #d1d5db;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .header-icon {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            opacity: 0.7;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 5px;
+        }
+
+        .container {
+            display: flex;
+            padding: 40px;
+            gap: 40px;
+            flex: 1;
+        }
+
+        .sidebar {
+            width: 200px; 
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: #D7EDFF;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #0E73F6;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-item.active {
+            background-color: #D7EDFF;
+            border-color: #b6d4fe;
+        }
+
+        .nav-logo {
+            width: 18px;
+            height: 18px;
+            margin-right: 12px;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin-top: 80px; 
+        }
+
+        .page-header-wrapper {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title {
+            grid-column: 2;
+            font-size: 28px; 
+            font-weight: 700;
+            color: #212529;
+        }
+
+        .btn-add {
+            grid-column: 1;
+            justify-self: start;
+            background-color: #65558F;
+            color: #FFFFFF;
+            padding: 12px 24px; 
+            border-radius: 100px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        
+        .data-card {
+            background-color: #fff;
+            padding: 30px; 
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            font-size: 14px;
+            color: #000;
+            font-weight: 700;
+            padding: 20px 15px; 
+            border-bottom: 2px solid #f1f3f5;
+        }
+
+        td {
+            padding: 20px 15px; 
+            border-bottom: 1px solid #f8f9fa;
+            font-size: 15px;
+            color: #334155;
+            vertical-align: middle;
+        }
+
+        .post-img {
+            width: 70px; 
+            height: 45px;
+            border-radius: 6px;
+            object-fit: cover;
+        }
+
+        
+        .status-badge {
+            padding: 8px 16px; 
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .public { background: #dcfce7; color: #166534; }
+        .private { background: #fee2e2; color: #991b1b; }
+        .public-private-select {
+            font-size: 13px;
+            padding: 8px 12px;
+            color: #000;
+            background-color: #f1f3f5;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            cursor: pointer;
+            outline: none;
+            min-width: 100px;
+        }
+
+        .btn-action {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 13px;
+            color: white;
+            font-weight: 600;
+        }
+        .btn-edit-green { background-color: #22c55e; margin-right: 8px; }
+        .btn-delete-red { background-color: #ef4444; }
+
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .page-numbers-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .page-num {
+            padding: 8px 12px;
+            font-size: 14px;
+            color: #667085;
+            cursor: pointer;
+        }
+
+        .page-num.active {
+            color: #7F56D9;
+            font-weight: bold;
+            background: #F9F5FF;
+            border-radius: 6px;
+        }
+
+        .page-num1, .page-num2 {
+            border: 1px solid #D0D5DD;
+            border-radius: 8px;
+            padding: 10px 18px;
+            color: #344054;
+            background-color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="../image/mail.png" class="header-icon" alt="Mail">
+        <img src="../image/bell.png" class="header-icon" alt="Notify">
+        <img src="../image/10d5c319419f2137bf8772f28aaf576b74a68518 (1).png" class="user-avatar" alt="User">
+    </header>
+
+    <div class="container">
+        <nav class="sidebar">
+            <a href="quanlynguoidung.html" class="nav-item">
+                <img src="../image/Users_Group.png" class="nav-logo"> Manage Users
+            </a>
+            <a href="quanlidanhmuc.html" class="nav-item">
+                <img src="../image/Book.png" class="nav-logo"> Manage Entries
+            </a>
+            <a href="adminthemmoibaiviet2.html" class="nav-item active">
+                <img src="../image/Book_Open.png" class="nav-logo"> Manage Article
+            </a>
+            <a href="quanlynguoidung.html" class="nav-item logout">
+                <img src="../image/Log_Out.png" class="nav-logo"> Log out
+            </a>
+        </nav>
+        
+        <main class="main-content">
+            <div class="page-header-wrapper">
+                <a href="formarticle.html" class="btn-add">Thêm mới bài viết</a>
+                <h2 class="page-title">Quản lý bài viết</h2>
+                <div></div>
+            </div>
+
+            <div class="data-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ảnh</th>
+                            <th>Tiêu đề</th>
+                            <th>Chủ đề</th>
+                            <th>Nội dung</th>
+                            <th>Trạng thái</th>
+                            <th>Chỉnh sửa trạng thái</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="articleList">
+                        
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination">
+                <a href="#" class="page-num1">← Previous</a>
+                <div class="page-numbers-group">
+                </div>
+                <a href="#" class="page-num2">Next →</a>
+            </div>
+        </main>
+    </div>
+    <script src="../js/brain-adminthemmoibaiviet.js"></script>
+</body>
+</html>

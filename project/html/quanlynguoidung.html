@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý người dùng</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fc;
+            color: #000000;
+        }
+
+
+        .dau-trang {
+            background: #fff;
+            padding: 12px 60px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            gap: 25px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .icon-dau {
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+            opacity: 0.7;
+        }
+
+        .anh-dai-dien {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #ddd;
+        }
+
+        .khung-mo-ta {
+            background-color: #ffffff;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-left: 10px;
+            padding-right: 70px;
+        }
+
+        .khung-lon {
+            display: flex;
+            padding: 40px 60px;
+            gap: 40px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .cot-trai {
+            width: 240px;
+            flex-shrink: 0;
+        }
+
+        .nut-bam {
+            display: flex;
+            align-items: center;
+            padding: 12px 18px;
+            margin-bottom: 12px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #0E73F6;
+            background-color: #D7EDFF;
+            border: 1px solid #eef0f2;
+            font-size: 15px;
+            transition: 0.3s;
+            font-weight: 700;
+        }
+
+        .nut-bam:hover {
+            background-color: #D7EDFF;
+        }
+
+        .nut-bam.active {
+            background-color: #D7EDFF;
+            font-weight: 700;
+            border-color: #d0e0ff;
+        }
+
+        .icon-cam {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+        }
+
+        .noi-dung-chinh {
+            flex: 1;
+        }
+
+
+        .phan-tren-bang {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .chu-lon {
+            font-size: 20px;
+            font-weight: 600;
+            color: #000000;
+        }
+
+        .chu-nho {
+            color: #6941C6;
+            font-size: 17px;
+            margin-left: 10px;
+            font-weight: 400;
+            border: 0px solid#F9F5FF;
+            border-radius: 8px;
+            background-color: #F9F5FF;
+            padding: 5px;
+        }
+
+        .khung-tim-kiem {
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding-right: 90px;
+
+        }
+
+        .icon-tim-trong {
+            position: absolute;
+            left: 12px;
+            width: 18px;
+            height: 18px;
+            pointer-events: none;
+        }
+
+        .o-tim {
+            border: 0px solid #e0e0e0;
+            padding: 20px 80px 20px 40px;
+            width: 450px;
+            outline: none;
+            background: #ffffff;
+            font-size: 20px;
+            color: #000000;
+        }
+
+        ::placeholder {
+            color: #101828;
+            font-weight: 600;
+        }
+
+        .vung-bang {
+            background: #fff;
+            overflow: hidden;
+            min-height: 600px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+
+        th {
+            text-align: left;
+            color: #000000;
+            font-size: 14px;
+            padding: 15px 20px;
+            border-bottom: 2px solid #f1f5f9;
+            background-color: #FAFAFB;
+        }
+
+        .tieu-de-cot {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tieu-de-cot img {
+            width: 16px;
+            height: 16px;
+        }
+
+        td {
+            padding: 18px 20px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 15px;
+            color: #000000;
+        }
+
+        .user-the {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .anh-tron {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .ten-chinh {
+            display: block;
+            font-weight: 600;
+            color: #000000;
+        }
+
+        .ten-phu {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .trang-thai {
+            color: #000000;
+        }
+
+        .link-hanh-dong {
+            text-decoration: none;
+            margin-right: 15px;
+            font-weight: 500;
+            font-size: 14px;
+            color: #1a73e8;
+            background-color: #EFF8FF;
+            border: 0px;
+            border-radius: 5px;
+            padding: 2px
+        }
+
+        .link-hanh-dong:hover {
+            text-decoration: underline;
+        }
+
+        .link-hanh-dong1 {
+            text-decoration: none;
+            margin-right: 15px;
+            font-weight: 500;
+            font-size: 14px;
+            color: #6941C6;
+            background-color: #F9F5FF;
+            border: 0px;
+            border-radius: 5px;
+            padding: 2px
+        }
+
+        .phan-trang {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 40px;
+            gap: 8px;
+            padding-bottom: 40px;
+        }
+
+        .trang-so {
+            padding: 8px 14px;
+            font-size: 14px;
+            text-decoration: none;
+            color: #64748b;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .trang-so.dang-mo {
+            background: #f1f5f9;
+            color: #000000;
+            font-weight: 700;
+        }
+
+        .nut-ke {
+            border: 1px solid #e2e8f0;
+            padding: 8px 20px !important;
+            color: #000000;
+            font-weight: 500;
+        }
+
+        .mail {
+            color: #667085;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="dau-trang">
+        <img src="../image/mail.png" alt="icon1" class="icon-dau">
+        <img src="../image/bell.png" alt="icon2" class="icon-dau">
+        <img src="../image/10d5c319419f2137bf8772f28aaf576b74a68518 (1).png" alt="avatar" class="anh-dai-dien">
+    </header>
+
+    <div class="khung-lon">
+        <aside class="cot-trai">
+            <a href="quanlynguoidung.html" class="nut-bam active">
+                <img src="../image/Users_Group.png" class="icon-cam"> Manage Users
+            </a>
+            <a href="quanlidanhmuc.html" class="nut-bam">
+                <img src="../image/Book.png" class="icon-cam"> Manage Entries
+            </a>
+            <a href="adminthemmoibaiviet2.html" class="nut-bam">
+                <img src="../image/Book_Open.png" class="icon-cam"> Manage Article
+            </a>
+            <a href="quanlynguoidung.html" class="nut-bam" style="margin-top: 20px;">
+                <img src="../image/Log_Out.png" class="icon-cam"> Log out
+            </a>
+        </aside>
+
+        <main class="noi-dung-chinh">
+            <div class="phan-tren-bang">
+                <div class="khung-mo-ta">
+                    <span class="chu-lon">
+                        <stong>Team members</stong>
+                    </span>
+                    <span class="chu-nho">100 users</span>
+                </div>
+
+                <div class="khung-tim-kiem">
+                    <img src="../image/search.png" class="icon-tim-trong" alt="">
+                    <input type="text" class="o-tim" placeholder="Search user">
+                </div>
+            </div>
+
+            <div class="vung-bang">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 30%;">
+                                <div class="tieu-de-cot">Name <img src="../image/Sort by alpha (1).png" alt=""></div>
+                            </th>
+                            <th style="width: 20%;">
+                                <div class="tieu-de-cot">Status <img src="../image/arrow-down.png" alt=""></div>
+                            </th>
+                            <th style="width: 30%;">Email address</th>
+                            <th style="width: 20%;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="danh-sach">
+                        <tr>
+                            <td>
+                                <div class="user-the">
+                                    <img src="https://i.pravatar.cc/150?u=1" class="anh-tron">
+                                    <div><span class="ten-chinh">Olivia Rhye</span><span class="ten-phu">@olivia</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="trang-thai">hoạt động</span></td>
+                            <td class="mail">olivia@untitledui.com</td>
+                            <td><a href="#" class="link-hanh-dong1">block</a><a href="#"
+                                    class="link-hanh-dong">unblock</a></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-the">
+                                    <img src="https://i.pravatar.cc/150?u=2" class="anh-tron">
+                                    <div><span class="ten-chinh">Phoenix Baker</span><span
+                                            class="ten-phu">@phoenix</span></div>
+                                </div>
+                            </td>
+                            <td><span class="trang-thai">hoạt động</span></td>
+                            <td class="mail">phoenix@untitledui.com</td>
+                            <td><a href="#" class="link-hanh-dong1">block</a><a href="#"
+                                    class="link-hanh-dong">unblock</a></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-the">
+                                    <img src="https://i.pravatar.cc/150?u=3" class="anh-tron">
+                                    <div><span class="ten-chinh">Lana Steiner</span><span class="ten-phu">@lana</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="trang-thai">hoạt động</span></td>
+                            <td class="mail">lana@untitledui.com</td>
+                            <td><a href="#" class="link-hanh-dong1">block</a><a href="#"
+                                    class="link-hanh-dong">unblock</a></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-the">
+                                    <img src="https://i.pravatar.cc/150?u=4" class="anh-tron">
+                                    <div><span class="ten-chinh">Demi Wilkinson</span><span class="ten-phu">@demi</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="trang-thai">hoạt động</span></td>
+                            <td class="mail">demi@untitledui.com</td>
+                            <td><a href="#" class="link-hanh-dong1">block</a><a href="#"
+                                    class="link-hanh-dong">unblock</a></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-the">
+                                    <img src="https://i.pravatar.cc/150?u=5" class="anh-tron">
+                                    <div><span class="ten-chinh">Candice Wu</span><span class="ten-phu">@candice</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="trang-thai">hoạt động</span></td>
+                            <td class="mail">candice@untitledui.com</td>
+                            <td><a href="#" class="link-hanh-dong1">block</a><a href="#"
+                                    class="link-hanh-dong">unblock</a></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-the">
+                                    <img src="https://i.pravatar.cc/150?u=6" class="anh-tron">
+                                    <div><span class="ten-chinh">Natali Craig</span><span class="ten-phu">@natali</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="trang-thai">hoạt động</span></td>
+                            <td class="mail">natali@untitledui.com</td>
+                            <td><a href="#" class="link-hanh-dong1">block</a><a href="#"
+                                    class="link-hanh-dong">unblock</a></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-the">
+                                    <img src="https://i.pravatar.cc/150?u=7" class="anh-tron">
+                                    <div><span class="ten-chinh">Drew Cano</span><span class="ten-phu">@drew</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="trang-thai">hoạt động</span></td>
+                            <td class="mail">drew@untitledui.com</td>
+                            <td><a href="#" class="link-hanh-dong1">block</a><a href="#"
+                                    class="link-hanh-dong">unblock</a></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-the">
+                                    <img src="https://i.pravatar.cc/150?u=8" class="anh-tron">
+                                    <div><span class="ten-chinh">Orlando Diggs</span><span
+                                            class="ten-phu">@orlando</span></div>
+                                </div>
+                            </td>
+                            <td><span class="trang-thai">hoạt động</span></td>
+                            <td class="mail">orlando@untitledui.com</td>
+                            <td><a href="#" class="link-hanh-dong1">block</a><a href="#"
+                                    class="link-hanh-dong">unblock</a></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-the">
+                                    <img src="https://i.pravatar.cc/150?u=9" class="anh-tron">
+                                    <div><span class="ten-chinh">Andi Lane</span><span class="ten-phu">@andi</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="trang-thai">hoạt động</span></td>
+                            <td class="mail">andi@untitledui.com</td>
+                            <td><a href="#" class="link-hanh-dong1">block</a><a href="#"
+                                    class="link-hanh-dong">unblock</a></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-the">
+                                    <img src="https://i.pravatar.cc/150?u=10" class="anh-tron">
+                                    <div><span class="ten-chinh">Kate Morrison</span><span class="ten-phu">@kate</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="trang-thai">hoạt động</span></td>
+                            <td class="mail">kate@untitledui.com</td>
+                            <td><a href="#" class="link-hanh-dong1">block</a><a href="#"
+                                    class="link-hanh-dong">unblock</a></td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+            <div class="phan-trang">
+                <a href="#" class="trang-so nut-ke"> &larr; Previous</a>
+                <a href="#" class="trang-so dang-mo">1</a>
+                <a href="#" class="trang-so">2</a>
+                <a href="#" class="trang-so">3</a>
+                <span class="trang-so">...</span>
+                <a href="#" class="trang-so">8</a>
+                <a href="#" class="trang-so">9</a>
+                <a href="#" class="trang-so">10</a>
+                <a href="#" class="trang-so nut-ke">Next &rarr;</a>
+            </div>
+        </main>
+    </div>
+    <script src="../js/brain-adminRENuser.js"></script>
+
+</body>
+
+</html>

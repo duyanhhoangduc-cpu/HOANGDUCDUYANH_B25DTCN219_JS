@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Detail</title>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: Arial;
+            background: #f9fafb;
+            padding: 80px 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 0 40px;
+        }
+
+        .article-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 40px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .article-layout {
+            display: flex;
+            gap: 30px;
+        }
+
+        .left-column {
+            width: 60px;
+            text-align: center;
+        }
+
+        .author-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .right-column { flex: 1; }
+
+        .article-title {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .article-body-box {
+            margin-bottom: 20px;
+        }
+
+        /* COMMENT */
+        .comment-section { margin-top: 30px; }
+
+        .comment-input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .comment-input input {
+            flex: 1;
+            padding: 10px;
+        }
+
+        .comment-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .comment-top {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+
+        .delete-btn {
+            color: red;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="article-card">
+
+        <a href="#" class="back-btn">← Quay lại</a>
+
+        <div class="article-layout">
+            <div class="left-column">
+                <img src="" class="author-avatar">
+            </div>
+
+            <div class="right-column">
+                <h2 class="article-title"></h2>
+                <div class="article-body-box"></div>
+
+                <!-- COMMENT -->
+                <div class="comment-section">
+                    <h3>Bình luận</h3>
+
+                    <div class="comment-input">
+                        <input type="text" id="commentText" placeholder="Viết bình luận...">
+                        <button id="sendComment">Gửi</button>
+                    </div>
+
+                    <div class="comment-list"></div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const params = new URLSearchParams(window.location.search);
+    const postId = params.get("id");
+
+    let articles = JSON.parse(localStorage.getItem("articles")) || [];
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    let currentUserId = localStorage.getItem("currentUserId");
+
+    const post = articles.find(a => String(a.id) === String(postId));
+
+    if (!post) {
+        document.body.innerHTML = "<p>Bài viết không tồn tại.</p>";
+        return;
+    }
+
+    // ===== TITLE + CONTENT =====
+    document.querySelector(".article-title").textContent =
+        post.title || "Không có tiêu đề";
+
+    document.querySelector(".article-body-box").textContent =
+        post.content || "Không có nội dung";
+
+    // ===== IMAGE BÀI VIẾT (FIX) =====
+    let imageSrc = post.image;
+
+    if (!imageSrc || imageSrc.trim() === "") {
+        imageSrc = "../image/Image.png"; // ảnh mặc định
+    }
+
+    const img = document.createElement("img");
+    img.src = imageSrc;
+    img.style.width = "100%";
+    img.style.borderRadius = "12px";
+    img.style.objectFit = "cover";
+    img.style.marginBottom = "20px";
+
+    img.onerror = function () {
+        this.src = "../image/Image.png";
+    };
+
+    // chèn lên trên content
+    document.querySelector(".article-body-box").prepend(img);
+
+    // ===== AVATAR =====
+    const avatar = document.querySelector(".author-avatar");
+
+    let avatarSrc = post.authorAvatar;
+
+    if (!avatarSrc || avatarSrc.trim() === "") {
+        avatarSrc = "https://i.pravatar.cc/150?img=3";
+    }
+
+    avatar.src = avatarSrc;
+
+    avatar.onerror = function () {
+        this.src = "https://i.pravatar.cc/150?img=5";
+    };
+
+    // ===== BACK =====
+    document.querySelector(".back-btn").onclick = function (e) {
+        e.preventDefault();
+        window.history.back();
+    };
+
+    // ===== COMMENT =====
+    const commentList = document.querySelector(".comment-list");
+    const commentInput = document.getElementById("commentText");
+    const sendBtn = document.getElementById("sendComment");
+
+    function getComments() {
+        let comments = JSON.parse(localStorage.getItem("comments")) || [];
+        return comments.filter(c => String(c.postId) === String(postId));
+    }
+
+    function renderComments() {
+        commentList.innerHTML = "";
+        let comments = getComments();
+
+        comments.forEach(c => {
+            const div = document.createElement("div");
+            div.className = "comment-item";
+
+            div.innerHTML = `
+                <div class="comment-top">
+                    <strong>${c.userName || "User"}</strong>
+                    ${
+                        String(c.userId) === String(currentUserId)
+                        ? `<span class="delete-btn" onclick="deleteComment(${c.id})">Xóa</span>`
+                        : ""
+                    }
+                </div>
+                <div>${c.content}</div>
+            `;
+
+            commentList.appendChild(div);
+        });
+    }
+
+    sendBtn.onclick = function () {
+        let text = commentInput.value.trim();
+
+        if (!text) return alert("Nhập nội dung!");
+
+        let comments = JSON.parse(localStorage.getItem("comments")) || [];
+        let user = users.find(u => String(u.id) === String(currentUserId));
+
+        if (!user) return alert("Chưa đăng nhập!");
+
+        comments.push({
+            id: Date.now(),
+            postId: postId,
+            userId: user.id,
+            userName: user.name || "User",
+            content: text
+        });
+
+        localStorage.setItem("comments", JSON.stringify(comments));
+
+        commentInput.value = "";
+        renderComments();
+    };
+
+    window.deleteComment = function (id) {
+        let comments = JSON.parse(localStorage.getItem("comments")) || [];
+        comments = comments.filter(c => c.id !== id);
+        localStorage.setItem("comments", JSON.stringify(comments));
+        renderComments();
+    };
+
+    renderComments();
+
+});
+</script>
+
+</body>
+</html>
